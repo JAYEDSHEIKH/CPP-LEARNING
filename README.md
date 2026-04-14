@@ -1,86 +1,120 @@
-# C++ Complete Reference Guide
+# C++ Complete Guide — Beginner to Advanced
 
-> A full reference document covering C++ from basics to advanced — syntax, concepts, patterns, and best practices.
+> Don't panic. This guide starts from absolute zero and builds up step by step.
+> Every concept has a simple English explanation + code. Read it like a story.
 
 ---
 
 ## Table of Contents
 
-1. [Introduction](#1-introduction)
-2. [Program Structure](#2-program-structure)
-3. [Data Types & Variables](#3-data-types--variables)
-4. [Operators](#4-operators)
-5. [Control Flow](#5-control-flow)
-6. [Functions](#6-functions)
-7. [Arrays & Strings](#7-arrays--strings)
-8. [Pointers & References](#8-pointers--references)
-9. [Object-Oriented Programming](#9-object-oriented-programming)
-10. [Inheritance & Polymorphism](#10-inheritance--polymorphism)
-11. [Templates](#11-templates)
-12. [STL (Standard Template Library)](#12-stl-standard-template-library)
-13. [Memory Management](#13-memory-management)
-14. [Exception Handling](#14-exception-handling)
-15. [File I/O](#15-file-io)
-16. [Modern C++ (C++11/14/17/20)](#16-modern-c-c111417-20)
-17. [Concurrency & Multithreading](#17-concurrency--multithreading)
-18. [Best Practices & Common Mistakes](#18-best-practices--common-mistakes)
+### 🟢 Beginner
+1. [What is C++?](#1-what-is-c)
+2. [Your First Program](#2-your-first-program)
+3. [Variables & Data Types](#3-variables--data-types)
+4. [Getting Input from User](#4-getting-input-from-user)
+5. [Operators](#5-operators)
+6. [Making Decisions (if/else)](#6-making-decisions-ifelse)
+7. [Loops](#7-loops)
+8. [Functions](#8-functions)
+9. [Arrays](#9-arrays)
+10. [Strings](#10-strings)
+
+### 🟡 Intermediate
+11. [Pointers & References](#11-pointers--references)
+12. [Object-Oriented Programming](#12-object-oriented-programming-oop)
+13. [Inheritance & Polymorphism](#13-inheritance--polymorphism)
+14. [File Input & Output](#14-file-input--output)
+15. [Error Handling (Exceptions)](#15-error-handling-exceptions)
+16. [The STL — Standard Template Library](#16-the-stl--standard-template-library)
+
+### 🔴 Advanced
+17. [Templates](#17-templates)
+18. [Smart Pointers & Memory Management](#18-smart-pointers--memory-management)
+19. [Modern C++ (C++11 to C++20)](#19-modern-c-c11-to-c20)
+20. [Multithreading](#20-multithreading)
+21. [Best Practices & Common Mistakes](#21-best-practices--common-mistakes)
+22. [Quick Reference Cheat Sheet](#22-quick-reference-cheat-sheet)
 
 ---
 
-## 1. Introduction
+# 🟢 BEGINNER
 
-C++ is a general-purpose, compiled, statically-typed programming language created by **Bjarne Stroustrup** in 1979 as an extension of C. It supports:
+---
 
-- **Procedural programming** (like C)
-- **Object-Oriented Programming (OOP)**
-- **Generic programming** (templates)
-- **Low-level memory manipulation**
+## 1. What is C++?
 
-### C++ Standards Timeline
+**In simple words:** C++ is a programming language that lets you talk to a computer and tell it what to do. It is one of the fastest languages ever made.
 
-| Standard | Year | Key Features |
-|----------|------|--------------|
-| C++98 | 1998 | First ISO standard |
-| C++03 | 2003 | Bug fixes |
-| C++11 | 2011 | auto, lambdas, move semantics, smart pointers |
-| C++14 | 2014 | Generic lambdas, constexpr improvements |
-| C++17 | 2017 | std::optional, std::variant, structured bindings |
-| C++20 | 2020 | Concepts, ranges, coroutines, modules |
-| C++23 | 2023 | std::print, std::expected, more ranges |
+**Where is C++ used?**
+- Games — Unreal Engine, most AAA games (GTA, Fortnite engine)
+- Operating Systems — Windows, Linux parts
+- Browsers — Chrome, Firefox internals
+- Databases — MySQL, MongoDB
+- Embedded systems — cars, robots, IoT devices
 
-### Compiling a C++ Program
+**C++ vs other languages:**
 
+| Language | Speed | Difficulty | Used For |
+|----------|-------|------------|----------|
+| C++ | Fastest | Hard | Games, OS, performance apps |
+| Python | Slow | Easy | AI, scripting, data science |
+| Java | Medium | Medium | Android, enterprise, Minecraft |
+| JavaScript | Medium | Easy | Web |
+
+**How C++ works:**
+```
+You write code  →  Compiler translates to machine code  →  Computer runs it
+  (main.cpp)           (g++ compiler)                      (very fast!)
+```
+
+**Installing a compiler:**
 ```bash
-# GCC
-g++ -std=c++17 -o output main.cpp
+# Windows: Download MinGW from mingw-w64.org, or install Visual Studio
 
-# Clang
-clang++ -std=c++17 -o output main.cpp
+# Mac:
+xcode-select --install
 
-# With warnings (recommended)
-g++ -std=c++17 -Wall -Wextra -o output main.cpp
+# Linux (Ubuntu/Debian):
+sudo apt install g++
+
+# Check if installed:
+g++ --version
 ```
 
 ---
 
-## 2. Program Structure
-
-### Hello World
+## 2. Your First Program
 
 ```cpp
-#include <iostream>   // Include standard I/O library
+#include <iostream>    // loads the tools for printing text
 
-int main() {          // Entry point of every C++ program
+int main() {           // every C++ program starts from main()
     std::cout << "Hello, World!" << std::endl;
-    return 0;         // 0 means success
+    return 0;          // 0 = program finished successfully
 }
 ```
 
-### Using Namespace
+**Line by line:**
 
+| Line | What it means |
+|------|---------------|
+| `#include <iostream>` | Import the input/output library (like a toolbox) |
+| `int main()` | This is where your program starts |
+| `std::cout <<` | Print to the screen |
+| `std::endl` | Go to next line (like pressing Enter) |
+| `return 0;` | Tell the OS: no errors, done |
+
+**Compile and run:**
+```bash
+g++ hello.cpp -o hello    # compile: creates the program
+./hello                    # run on Linux/Mac
+hello.exe                  # run on Windows
+```
+
+**Avoid typing `std::` everywhere:**
 ```cpp
 #include <iostream>
-using namespace std;  // Avoid typing std:: everywhere (not recommended in headers)
+using namespace std;   // now write cout instead of std::cout
 
 int main() {
     cout << "Hello!" << endl;
@@ -88,1976 +122,1856 @@ int main() {
 }
 ```
 
-### Preprocessor Directives
-
+**Printing multiple things:**
 ```cpp
-#include <iostream>       // Include standard library header
-#include "myfile.h"       // Include local header
-
-#define PI 3.14159        // Macro constant
-#define SQUARE(x) ((x)*(x)) // Macro function (prefer constexpr instead)
-
-#ifdef DEBUG
-    cout << "Debug mode" << endl;
-#endif
-
-#pragma once              // Include guard (modern alternative to #ifndef guards)
+cout << "My name is " << "Alice" << endl;
+cout << "I am " << 20 << " years old" << endl;
+cout << "Pi is " << 3.14159 << endl;
+cout << "Two plus two is " << 2 + 2 << endl;
 ```
 
-### Header Guards (traditional)
-
+**Comments:**
 ```cpp
-// myheader.h
-#ifndef MYHEADER_H
-#define MYHEADER_H
+// This is a single line comment — ignored by compiler
 
-// declarations here
+/* This is a
+   multi-line comment */
 
-#endif // MYHEADER_H
+int x = 5;  // inline comment after code
 ```
 
 ---
 
-## 3. Data Types & Variables
+## 3. Variables & Data Types
 
-### Fundamental Types
+**What is a variable?**
+A variable is a named box that stores a value. You give it a type and a name.
 
-```cpp
-// Integer types
-int a = 42;                  // typically 32-bit
-short b = 100;               // at least 16-bit
-long c = 100000L;            // at least 32-bit
-long long d = 9999999999LL;  // at least 64-bit
-
-// Unsigned variants
-unsigned int ua = 42u;
-unsigned long long ull = 100ULL;
-
-// Floating point
-float f = 3.14f;             // ~7 decimal digits precision
-double d2 = 3.14159265358;   // ~15 decimal digits precision
-long double ld = 3.14L;      // extended precision
-
-// Character
-char ch = 'A';               // 1 byte
-wchar_t wch = L'A';          // wide character
-char16_t c16 = u'A';         // UTF-16
-char32_t c32 = U'A';         // UTF-32
-
-// Boolean
-bool flag = true;            // true or false
-
-// Void
-void myFunc() {}             // no return value
+```
+int age = 25;
+ ↑    ↑    ↑
+type  name  value
 ```
 
-### Fixed-Width Types (from `<cstdint>`)
+### The Basic Types
 
 ```cpp
-#include <cstdint>
+// Whole numbers (integers)
+int age = 25;                  // standard integer: -2 billion to +2 billion
+long long bigNum = 9999999999; // very large integer
+short small = 100;             // small integer (saves memory)
 
-int8_t   a;   // exactly 8-bit signed
-int16_t  b;   // exactly 16-bit signed
-int32_t  c;   // exactly 32-bit signed
-int64_t  d;   // exactly 64-bit signed
+// Decimal numbers
+float price = 9.99f;           // 7 digits of precision — add 'f' at end
+double pi = 3.14159265358;     // 15 digits of precision — prefer this
 
-uint8_t  ua;  // exactly 8-bit unsigned
-uint16_t ub;
-uint32_t uc;
-uint64_t ud;
+// Single character
+char grade = 'A';              // single quotes for char!
+char letter = 'z';
+
+// True or False
+bool isRaining = false;
+bool isSunny = true;
+
+// Text
+string name = "Alice";         // needs #include <string>
+string message = "Hello World";
 ```
 
-### Variable Declaration & Initialization
-
+### Variable Rules
 ```cpp
-int x;           // declared (undefined value — dangerous)
-int y = 10;      // copy initialization
-int z(10);       // direct initialization
-int w{10};       // uniform/brace initialization (C++11, preferred)
-int v{};         // zero-initialized
+// Valid names
+int myAge = 20;
+int player1Score = 0;
+int _counter = 0;
+int totalAmount = 100;
 
-auto a = 42;     // type deduced as int
-auto b = 3.14;   // type deduced as double
-auto c = 'A';    // type deduced as char
-auto d = true;   // type deduced as bool
+// Invalid names — these cause errors
+int 1player = 0;    // cannot start with a number
+int my age = 0;     // cannot have spaces
+int int = 0;        // cannot use reserved words like int, for, while
+
+// Case sensitive — these are THREE different variables
+int score = 10;
+int Score = 20;
+int SCORE = 30;
 ```
 
-### Constants
-
+### Constants — values that never change
 ```cpp
-const int MAX = 100;           // runtime constant, cannot be modified
-constexpr int SIZE = 256;      // compile-time constant (C++11)
-constexpr double PI = 3.14159265358979;
+const double PI = 3.14159265;
+const int MAX_PLAYERS = 4;
+const string GAME_NAME = "Pong";
 
-// constexpr function (evaluated at compile time if possible)
-constexpr int square(int x) { return x * x; }
-constexpr int s = square(5);   // computed at compile time
+PI = 3;   // ERROR: cannot change a constant
 ```
 
-### Type Modifiers & Qualifiers
-
+### Checking type sizes
 ```cpp
-const int x = 5;         // cannot modify
-volatile int sensor;     // can change unexpectedly (hardware/ISR)
-mutable int counter;     // can be modified even in const objects (inside class)
+cout << sizeof(int)    << " bytes" << endl;  // 4
+cout << sizeof(double) << " bytes" << endl;  // 8
+cout << sizeof(char)   << " bytes" << endl;  // 1
+cout << sizeof(bool)   << " bytes" << endl;  // 1
 ```
 
-### Type Conversions
-
+### Type conversion
 ```cpp
-// Implicit conversion
-int i = 3.7;              // truncates to 3 (narrowing)
+int x = 10;
+double y = x;              // int to double: safe, automatic
 
-// C-style cast (avoid)
-double d = (double)i;
+double d = 9.99;
+int i = d;                 // double to int: loses the .99 silently — careful!
+int i2 = static_cast<int>(d);  // same result, but explicit = better practice
 
-// C++ style casts (prefer these)
-double d2 = static_cast<double>(i);       // safe compile-time cast
-int* ip = reinterpret_cast<int*>(somePtr); // low-level bit reinterpretation
-const int* cp = const_cast<const int*>(p); // add/remove const
-Base* bp = dynamic_cast<Base*>(derivedPtr); // safe downcast (RTTI)
+// Examples
+int a = 7, b = 2;
+double result = a / b;           // result = 3.0  (integer division first!)
+double result2 = (double)a / b;  // result2 = 3.5 (cast a first, then divide)
 ```
 
-### sizeof & Type Info
+---
+
+## 4. Getting Input from User
 
 ```cpp
 #include <iostream>
-#include <typeinfo>
+using namespace std;
 
-cout << sizeof(int) << endl;        // 4 (typically)
-cout << sizeof(double) << endl;     // 8
-cout << typeid(x).name() << endl;   // type name string
+int main() {
+    int age;
+    cout << "Enter your age: ";
+    cin >> age;    // cin reads from keyboard, >> puts it in the variable
+    cout << "You are " << age << " years old!" << endl;
+    return 0;
+}
+```
+
+**Reading multiple values:**
+```cpp
+int a, b;
+cout << "Enter two numbers separated by space: ";
+cin >> a >> b;
+cout << "Sum = " << a + b << endl;
+```
+
+**Reading a full sentence (with spaces):**
+```cpp
+string fullName;
+cout << "Enter your full name: ";
+getline(cin, fullName);   // reads entire line including spaces
+cout << "Hello, " << fullName << "!" << endl;
+```
+
+**Important: mixing cin and getline:**
+```cpp
+int age;
+cin >> age;
+cin.ignore();              // clears the leftover newline — REQUIRED before getline
+string name;
+getline(cin, name);        // now works correctly
 ```
 
 ---
 
-## 4. Operators
+## 5. Operators
 
-### Arithmetic
-
+### Math Operators
 ```cpp
 int a = 10, b = 3;
-int sum  = a + b;    // 13
-int diff = a - b;    // 7
-int prod = a * b;    // 30
-int quot = a / b;    // 3 (integer division)
-int rem  = a % b;    // 1 (modulo)
 
-// Increment / Decrement
-a++;   // post-increment (use value, then increment)
-++a;   // pre-increment  (increment, then use value)
-b--;
---b;
-```
+cout << a + b << endl;   // 13 — addition
+cout << a - b << endl;   // 7  — subtraction
+cout << a * b << endl;   // 30 — multiplication
+cout << a / b << endl;   // 3  — integer division (no decimals!)
+cout << a % b << endl;   // 1  — remainder (10 = 3*3 + 1)
 
-### Comparison & Logical
+// To get decimal division, use doubles
+double x = 10.0, y = 3.0;
+cout << x / y << endl;   // 3.333...
 
-```cpp
-bool eq  = (a == b);   // equal
-bool neq = (a != b);   // not equal
-bool gt  = (a > b);
-bool lt  = (a < b);
-bool gte = (a >= b);
-bool lte = (a <= b);
+// Shortcuts
+a += 5;   // a = a + 5  → a is now 15
+a -= 2;   // a = a - 2  → a is now 13
+a *= 2;   // a = a * 2  → a is now 26
+a /= 2;   // a = a / 2  → a is now 13
+a %= 4;   // a = a % 4  → a is now 1
 
-bool both = (a > 0 && b > 0);   // logical AND
-bool either = (a > 0 || b < 0); // logical OR
-bool inv = !(a == b);            // logical NOT
-```
-
-### Bitwise
-
-```cpp
-int x = 0b1010;   // binary literal (C++14)
-int y = 0b1100;
-
-int and_  = x & y;    // 0b1000 — bitwise AND
-int or_   = x | y;    // 0b1110 — bitwise OR
-int xor_  = x ^ y;    // 0b0110 — bitwise XOR
-int not_  = ~x;       // bitwise NOT
-int lsh   = x << 2;   // left shift (multiply by 4)
-int rsh   = x >> 1;   // right shift (divide by 2)
-```
-
-### Assignment
-
-```cpp
+// Increment and Decrement
 int n = 5;
-n += 3;   // n = n + 3
-n -= 2;   // n = n - 2
-n *= 4;   // n = n * 4
-n /= 2;   // n = n / 2
-n %= 3;   // n = n % 3
-n &= 0xFF;
-n |= 0x01;
-n ^= 0x10;
-n <<= 1;
-n >>= 1;
+n++;      // n becomes 6 (post-increment: use value THEN add 1)
+++n;      // n becomes 7 (pre-increment: add 1 THEN use value)
+n--;      // n becomes 6
 ```
 
-### Ternary & Comma
-
+### Comparison Operators (result is true or false)
 ```cpp
-int max_val = (a > b) ? a : b;   // ternary
-
-// Comma operator (rarely used)
-int result = (a++, b++, a + b);  // evaluates left to right, returns last
+int x = 5, y = 10;
+cout << (x == y) << endl;  // 0 = false — are they equal?
+cout << (x != y) << endl;  // 1 = true  — are they different?
+cout << (x < y)  << endl;  // 1 = true  — less than?
+cout << (x > y)  << endl;  // 0 = false — greater than?
+cout << (x <= 5) << endl;  // 1 = true  — less than or equal?
+cout << (x >= 5) << endl;  // 1 = true  — greater than or equal?
 ```
 
-### Operator Precedence (High to Low, simplified)
+### Logical Operators
+```cpp
+// && = AND: both conditions must be true
+// || = OR:  at least one must be true
+// !  = NOT: flips true to false and vice versa
 
-```
-:: (scope)
-() [] -> . (postfix)
-++ -- + - ! ~ * & (unary)
-* / %
-+ -
-<< >>
-< <= > >=
-== !=
-&
-^
-|
-&&
-||
-?:
-= += -= ...
-,
+int age = 25;
+bool hasTicket = true;
+
+if (age >= 18 && hasTicket) {
+    cout << "You can enter!" << endl;
+}
+
+bool isWeekend = true;
+bool isHoliday = false;
+if (isWeekend || isHoliday) {
+    cout << "No school today!" << endl;
+}
+
+bool isLoggedIn = false;
+if (!isLoggedIn) {
+    cout << "Please log in first" << endl;
+}
 ```
 
 ---
 
-## 5. Control Flow
+## 6. Making Decisions (if/else)
 
-### if / else if / else
-
+### Basic if / else if / else
 ```cpp
-int score = 85;
+int score = 75;
 
 if (score >= 90) {
-    cout << "A" << endl;
+    cout << "Grade A — Excellent!" << endl;
 } else if (score >= 80) {
-    cout << "B" << endl;
+    cout << "Grade B — Good" << endl;
 } else if (score >= 70) {
-    cout << "C" << endl;
+    cout << "Grade C — Average" << endl;
+} else if (score >= 60) {
+    cout << "Grade D — Below average" << endl;
 } else {
-    cout << "F" << endl;
+    cout << "Grade F — Failed" << endl;
 }
 ```
 
-### switch
-
+### switch — cleaner for exact value matching
 ```cpp
-char grade = 'B';
+int day = 3;
 
-switch (grade) {
-    case 'A':
-        cout << "Excellent" << endl;
+switch (day) {
+    case 1:
+        cout << "Monday" << endl;
+        break;    // IMPORTANT: without break it falls into next case
+    case 2:
+        cout << "Tuesday" << endl;
         break;
-    case 'B':
-        cout << "Good" << endl;
+    case 3:
+        cout << "Wednesday" << endl;
         break;
-    case 'C':
-        cout << "Average" << endl;
+    case 4:
+        cout << "Thursday" << endl;
+        break;
+    case 5:
+        cout << "Friday" << endl;
+        break;
+    case 6:
+    case 7:
+        cout << "Weekend!" << endl;   // cases 6 and 7 share this
         break;
     default:
-        cout << "Unknown" << endl;
-        break;
+        cout << "Invalid day" << endl;
 }
 ```
 
-### while Loop
-
+### Ternary — one-line if/else
 ```cpp
-int i = 0;
-while (i < 5) {
+int age = 20;
+string label = (age >= 18) ? "adult" : "minor";
+// If age >= 18 → "adult", otherwise → "minor"
+cout << label << endl;   // adult
+
+int a = 5, b = 9;
+int bigger = (a > b) ? a : b;
+cout << bigger << endl;  // 9
+```
+
+---
+
+## 7. Loops
+
+### while — repeat while condition is true
+```cpp
+int i = 1;
+while (i <= 5) {
     cout << i << " ";
     i++;
 }
-// Output: 0 1 2 3 4
+// Output: 1 2 3 4 5
+
+// Countdown example
+int count = 10;
+while (count > 0) {
+    cout << count << "... ";
+    count--;
+}
+cout << "Blast off!" << endl;
 ```
 
-### do-while Loop
-
+### do-while — always runs at least once
 ```cpp
-int n;
+int number;
 do {
-    cout << "Enter positive number: ";
-    cin >> n;
-} while (n <= 0);   // executes at least once
+    cout << "Enter a positive number: ";
+    cin >> number;
+} while (number <= 0);   // if negative, ask again
+cout << "You entered: " << number << endl;
 ```
 
-### for Loop
-
+### for — best when you know how many times
 ```cpp
+// for (start; condition; step)
 for (int i = 0; i < 5; i++) {
     cout << i << " ";
 }
+// Output: 0 1 2 3 4
 
-// Multiple variables
-for (int i = 0, j = 10; i < j; i++, j--) {
-    cout << i << "," << j << " ";
-}
-
-// Infinite loop
-for (;;) {
-    // ...
-    break;
-}
-```
-
-### Range-Based for Loop (C++11)
-
-```cpp
-#include <vector>
-vector<int> nums = {1, 2, 3, 4, 5};
-
-for (int n : nums) {
-    cout << n << " ";
-}
-
-// With auto and reference (preferred for large objects)
-for (auto& n : nums) {
-    n *= 2;   // modifies original
-}
-
-// Const reference (read-only, no copy)
-for (const auto& n : nums) {
-    cout << n << " ";
-}
-```
-
-### break, continue, goto
-
-```cpp
-for (int i = 0; i < 10; i++) {
-    if (i == 5) break;      // exit loop entirely
-    if (i % 2 == 0) continue; // skip to next iteration
+// Count from 1 to 10
+for (int i = 1; i <= 10; i++) {
     cout << i << " ";
 }
-// Output: 1 3
 
-// goto (avoid — leads to spaghetti code)
-goto end;
-cout << "This is skipped" << endl;
-end:
-cout << "Jumped here" << endl;
+// Count backwards
+for (int i = 10; i >= 1; i--) {
+    cout << i << " ";
+}
+
+// Every other number
+for (int i = 0; i <= 20; i += 2) {
+    cout << i << " ";
+}
+// Output: 0 2 4 6 8 10 12 14 16 18 20
+```
+
+### break and continue
+```cpp
+// break: exit the loop completely
+for (int i = 0; i < 100; i++) {
+    if (i == 5) break;
+    cout << i << " ";
+}
+// Output: 0 1 2 3 4
+
+// continue: skip this iteration, go to next
+for (int i = 0; i < 10; i++) {
+    if (i % 2 == 0) continue;   // skip even numbers
+    cout << i << " ";
+}
+// Output: 1 3 5 7 9
+```
+
+### Nested loops (loop inside a loop)
+```cpp
+// Print multiplication table
+for (int i = 1; i <= 5; i++) {
+    for (int j = 1; j <= 5; j++) {
+        cout << i * j << "\t";   // \t = tab for alignment
+    }
+    cout << endl;
+}
+
+// Print a triangle pattern
+for (int i = 1; i <= 5; i++) {
+    for (int j = 0; j < i; j++) {
+        cout << "* ";
+    }
+    cout << endl;
+}
+// Output:
+// *
+// * *
+// * * *
+// * * * *
+// * * * * *
 ```
 
 ---
 
-## 6. Functions
+## 8. Functions
 
-### Basic Function
+**What is a function?**
+A named block of code you can run (call) whenever you want. Instead of writing the same logic 10 times, write it once as a function.
 
 ```cpp
-// Declaration (prototype)
-int add(int a, int b);
+// Structure:
+// returnType functionName(parameter1Type param1, ...) {
+//     body
+//     return value;
+// }
 
-// Definition
 int add(int a, int b) {
     return a + b;
 }
 
-// Call
-int result = add(3, 4);   // result = 7
+int main() {
+    int result = add(3, 4);      // call the function
+    cout << result << endl;      // 7
+
+    cout << add(10, 20) << endl; // 30
+    cout << add(100, 200) << endl; // 300
+    return 0;
+}
 ```
 
-### Default Parameters
-
+### void — functions that don't return a value
 ```cpp
-void greet(string name, string greeting = "Hello") {
-    cout << greeting << ", " << name << "!" << endl;
+void printLine() {
+    cout << "-------------------" << endl;
 }
 
-greet("Alice");           // Hello, Alice!
-greet("Bob", "Hi");       // Hi, Bob!
+void greet(string name) {
+    cout << "Hello, " << name << "!" << endl;
+}
+
+printLine();
+greet("Alice");
+greet("Bob");
+printLine();
 ```
 
-### Function Overloading
-
+### Default parameters
 ```cpp
-int multiply(int a, int b) { return a * b; }
-double multiply(double a, double b) { return a * b; }
-int multiply(int a, int b, int c) { return a * b * c; }
+// Parameters with defaults must be at the END
+void introduce(string name, int age = 18, string city = "Unknown") {
+    cout << name << ", age " << age << ", from " << city << endl;
+}
 
-multiply(2, 3);           // calls int version
-multiply(2.0, 3.0);       // calls double version
-multiply(2, 3, 4);        // calls 3-param version
+introduce("Alice", 25, "New York");   // Alice, age 25, from New York
+introduce("Bob", 30);                 // Bob, age 30, from Unknown
+introduce("Charlie");                 // Charlie, age 18, from Unknown
 ```
 
-### Pass by Value, Reference, Pointer
-
+### Function overloading — same name, different parameters
 ```cpp
+void print(int x) {
+    cout << "Integer: " << x << endl;
+}
+void print(double x) {
+    cout << "Double: " << x << endl;
+}
+void print(string x) {
+    cout << "String: " << x << endl;
+}
+
+print(42);       // Integer: 42
+print(3.14);     // Double: 3.14
+print("hello");  // String: hello
+```
+
+### Pass by reference — modify the original variable
+```cpp
+// By value: function gets a COPY, original unchanged
 void byValue(int x) {
-    x = 100;   // local copy modified, original unchanged
+    x = 100;   // only changes the local copy
 }
 
-void byReference(int& x) {
-    x = 100;   // modifies original
+// By reference: function works with the ORIGINAL
+void byReference(int& x) {   // & means reference
+    x = 100;   // changes the original variable
 }
 
-void byPointer(int* x) {
-    *x = 100;  // modifies original via dereference
-}
+int num = 5;
+byValue(num);
+cout << num << endl;     // still 5
 
-int n = 5;
-byValue(n);       // n still 5
-byReference(n);   // n is now 100
-byPointer(&n);    // n is now 100
+byReference(num);
+cout << num << endl;     // now 100!
+
+// Common use: swap two variables
+void swap(int& a, int& b) {
+    int temp = a;
+    a = b;
+    b = temp;
+}
 ```
 
-### Returning Multiple Values
-
+### Recursion — function that calls itself
 ```cpp
-#include <tuple>
-#include <utility>
-
-// Using pair
-pair<int, int> minmax(vector<int>& v) {
-    return {*min_element(v.begin(), v.end()),
-            *max_element(v.begin(), v.end())};
-}
-auto [mn, mx] = minmax(vec);   // structured binding (C++17)
-
-// Using tuple
-tuple<int, double, string> getData() {
-    return {42, 3.14, "hello"};
-}
-auto [i, d, s] = getData();
-```
-
-### Inline Functions
-
-```cpp
-inline int square(int x) {
-    return x * x;
-}
-// Compiler may substitute function body at call site — avoids function call overhead
-```
-
-### Recursive Functions
-
-```cpp
+// factorial(5) = 5 * 4 * 3 * 2 * 1 = 120
 int factorial(int n) {
-    if (n <= 1) return 1;          // base case
-    return n * factorial(n - 1);   // recursive call
+    if (n == 0 || n == 1) return 1;   // BASE CASE: stop here
+    return n * factorial(n - 1);       // recursive call with smaller n
 }
 
+cout << factorial(5)  << endl;  // 120
+cout << factorial(10) << endl;  // 3628800
+
+// Fibonacci: 0 1 1 2 3 5 8 13 21...
 int fibonacci(int n) {
     if (n <= 1) return n;
     return fibonacci(n - 1) + fibonacci(n - 2);
 }
 ```
 
-### Lambda Functions (C++11)
-
+### Function declaration vs definition
 ```cpp
-// Syntax: [capture](params) -> return_type { body }
+// If function is defined AFTER main, declare it first at the top
+int multiply(int a, int b);   // declaration (prototype) — just the signature
 
-auto add = [](int a, int b) { return a + b; };
-cout << add(3, 4) << endl;   // 7
+int main() {
+    cout << multiply(3, 4) << endl;   // can use it before definition
+    return 0;
+}
 
-// Capture by value
-int multiplier = 3;
-auto times = [multiplier](int x) { return x * multiplier; };
-
-// Capture by reference
-int count = 0;
-auto increment = [&count]() { count++; };
-
-// Capture all by value [=], all by reference [&]
-auto all_by_val = [=]() { /* can use any local var */ };
-auto all_by_ref = [&]() { /* can modify any local var */ };
-
-// Used with STL
-vector<int> v = {3, 1, 4, 1, 5, 9};
-sort(v.begin(), v.end(), [](int a, int b) { return a > b; }); // descending
-```
-
-### Function Pointers
-
-```cpp
-int add(int a, int b) { return a + b; }
-int sub(int a, int b) { return a - b; }
-
-// Function pointer
-int (*op)(int, int) = add;
-cout << op(3, 4) << endl;   // 7
-op = sub;
-cout << op(7, 3) << endl;   // 4
-
-// Using typedef or using
-using BinaryOp = int(*)(int, int);
-BinaryOp func = add;
+int multiply(int a, int b) {   // definition — the actual implementation
+    return a * b;
+}
 ```
 
 ---
 
-## 7. Arrays & Strings
+## 9. Arrays
 
-### C-style Arrays
+**What is an array?**
+A container that holds multiple values of the SAME type. Like a row of numbered boxes.
+
+```
+Index:   [0]  [1]  [2]  [3]  [4]
+         ┌────┬────┬────┬────┬────┐
+Values:  │ 90 │ 85 │ 78 │ 92 │ 88 │
+         └────┴────┴────┴────┴────┘
+Note: Index always starts at 0!
+```
 
 ```cpp
-int arr[5] = {1, 2, 3, 4, 5};
-int zeros[10] = {};          // zero-initialized
-int partial[5] = {1, 2};    // rest are zero
+// Declare and initialize
+int scores[5] = {90, 85, 78, 92, 88};
 
-// Access
-arr[0] = 10;
+// Access elements
+cout << scores[0] << endl;   // 90 (first)
+cout << scores[4] << endl;   // 88 (last)
 
-// Iterate
+// Modify
+scores[2] = 100;
+
+// Get size (in number of elements)
+int size = sizeof(scores) / sizeof(scores[0]);  // 5
+
+// Loop through
 for (int i = 0; i < 5; i++) {
-    cout << arr[i] << " ";
-}
-
-// 2D array
-int matrix[3][3] = {
-    {1, 2, 3},
-    {4, 5, 6},
-    {7, 8, 9}
-};
-cout << matrix[1][2] << endl;   // 6
-
-// Passing array to function (decays to pointer)
-void printArray(int* arr, int size) {
-    for (int i = 0; i < size; i++) cout << arr[i] << " ";
+    cout << "Score " << i << ": " << scores[i] << endl;
 }
 ```
 
-### std::array (C++11)
-
+### Important: array bounds!
 ```cpp
-#include <array>
-
-array<int, 5> arr = {1, 2, 3, 4, 5};
-cout << arr.size() << endl;     // 5
-cout << arr[0] << endl;
-cout << arr.at(1) << endl;      // bounds-checked access
-arr.fill(0);                    // fill all with 0
+int arr[3] = {10, 20, 30};
+cout << arr[0] << endl;   // 10 — valid
+cout << arr[2] << endl;   // 30 — valid (last)
+cout << arr[3] << endl;   // DANGER! Index 3 doesn't exist → undefined behavior
 ```
 
-### std::vector
+### 2D Arrays — like a grid or table
+```cpp
+int matrix[3][4] = {       // 3 rows, 4 columns
+    {1,  2,  3,  4},
+    {5,  6,  7,  8},
+    {9, 10, 11, 12}
+};
 
+cout << matrix[0][0] << endl;   // 1  (row 0, col 0)
+cout << matrix[1][2] << endl;   // 7  (row 1, col 2)
+cout << matrix[2][3] << endl;   // 12 (row 2, col 3)
+
+// Print all
+for (int row = 0; row < 3; row++) {
+    for (int col = 0; col < 4; col++) {
+        cout << matrix[row][col] << " ";
+    }
+    cout << endl;
+}
+```
+
+### Vectors — better arrays (flexible size)
 ```cpp
 #include <vector>
 
-vector<int> v;                     // empty
-vector<int> v2(5, 0);             // 5 elements, all 0
-vector<int> v3 = {1, 2, 3, 4, 5};
+vector<int> v = {1, 2, 3};
 
-v3.push_back(6);                  // append
-v3.pop_back();                    // remove last
-v3.insert(v3.begin() + 2, 99);   // insert at index 2
-v3.erase(v3.begin() + 1);        // remove at index 1
-v3.clear();                       // remove all
+v.push_back(4);     // add to end: {1,2,3,4}
+v.push_back(5);     // {1,2,3,4,5}
+v.pop_back();       // remove last: {1,2,3,4}
 
-cout << v3.size() << endl;        // number of elements
-cout << v3.capacity() << endl;    // allocated capacity
-v3.reserve(100);                  // pre-allocate
+cout << v.size() << endl;   // 4
+cout << v[0]     << endl;   // 1
 
-// Access
-v3[0];          // no bounds check
-v3.at(0);       // bounds check (throws std::out_of_range)
-v3.front();     // first element
-v3.back();      // last element
+// Range-based loop
+for (int x : v) {
+    cout << x << " ";
+}
+
+// Initialize with N copies
+vector<int> zeros(10, 0);    // 10 zeros: {0,0,0,0,0,0,0,0,0,0}
+vector<string> names(3, "unknown");  // {"unknown","unknown","unknown"}
 ```
 
-### C-style Strings (char arrays)
+---
 
-```cpp
-#include <cstring>
-
-char name[] = "Alice";
-char greeting[50] = "Hello";
-
-strlen(name);            // 5 (excludes null terminator)
-strcpy(greeting, name);  // copy name into greeting
-strcat(greeting, "!");   // append
-strcmp("abc", "abc");    // 0 if equal, <0 or >0 otherwise
-```
-
-### std::string (preferred)
+## 10. Strings
 
 ```cpp
 #include <string>
+using namespace std;
 
 string s = "Hello, World!";
-string s2("C++");
-string s3(5, 'x');    // "xxxxx"
 
-s.length();           // 13
-s.size();             // same as length()
-s.empty();            // false
-s.clear();            // make empty
+// Length
+cout << s.length() << endl;         // 13
+cout << s.size() << endl;           // same as length()
 
-s + " " + s2;         // concatenation
-s += "!";             // append
-s.append(" more");    // append
+// Access single character
+cout << s[0] << endl;               // H
+cout << s[7] << endl;               // W
 
-s[0];                 // 'H' — no bounds check
-s.at(0);              // 'H' — bounds check
+// Concatenation (joining strings)
+string first = "Hello";
+string second = "World";
+string combined = first + " " + second;   // "Hello World"
+first += "!";                             // first is now "Hello!"
 
-s.substr(7, 5);       // "World" — start=7, length=5
-s.find("World");      // returns position (string::npos if not found)
-s.replace(0, 5, "Hi");
+// Substring: extract part of string
+// s.substr(startIndex, length)
+cout << s.substr(7, 5) << endl;     // World
+
+// Find
+int pos = s.find("World");
+cout << pos << endl;                // 7
+
+// Check if something exists
+if (s.find("Hello") != string::npos) {
+    cout << "Found Hello!" << endl;
+}
+
+// Replace
+s.replace(0, 5, "Hi");             // "Hi, World!"
+
+// Compare
+if (first == second) cout << "same" << endl;
+else cout << "different" << endl;
 
 // Convert
-stoi("42");           // string → int
-stod("3.14");         // string → double
-to_string(42);        // int → string
+string numStr = to_string(42);      // int → string: "42"
+int num = stoi("123");              // string → int: 123
+double d = stod("3.14");           // string → double: 3.14
 
-// Split (manual — no built-in split)
-#include <sstream>
-stringstream ss("one two three");
-string word;
-while (ss >> word) cout << word << endl;
+// Empty check
+string empty = "";
+if (empty.empty()) cout << "String is empty" << endl;
 ```
 
 ---
 
-## 8. Pointers & References
+# 🟡 INTERMEDIATE
 
-### Pointers
+---
+
+## 11. Pointers & References
+
+### What is a pointer?
+A pointer stores a **memory address** — it tells you WHERE a variable lives in memory.
+
+Think of it like this: your variable is a house, the pointer is the house's address written on a piece of paper.
 
 ```cpp
-int x = 10;
-int* p = &x;         // p holds address of x
+int age = 25;
 
-cout << p << endl;   // memory address
-cout << *p << endl;  // 10 — dereference: value at address
-*p = 20;             // modifies x through pointer
-cout << x << endl;   // 20
+cout << age  << endl;    // 25          — the actual value
+cout << &age << endl;    // 0x7ffd...   — the memory address (& = "address of")
 
-// Null pointer
-int* np = nullptr;   // C++11 (prefer over NULL or 0)
-if (np == nullptr) cout << "null pointer" << endl;
+int* ptr = &age;         // ptr stores the address of age
+//   ↑ * means "pointer to int"
 
-// Pointer arithmetic
-int arr[] = {10, 20, 30, 40, 50};
-int* ptr = arr;
-cout << *ptr << endl;      // 10
-cout << *(ptr + 1) << endl; // 20 — moves by sizeof(int)
-ptr++;
-cout << *ptr << endl;      // 20
-
-// Pointer to pointer
-int** pp = &p;
-cout << **pp << endl;      // 20
+cout << ptr  << endl;    // same address as &age
+cout << *ptr << endl;    // 25 — dereference: get the value at that address
+//          ↑ * here means "value at this address"
 ```
 
-### Const and Pointers
-
+### Modifying through a pointer
 ```cpp
 int x = 10;
-const int* p1 = &x;     // pointer to const — can't modify *p1
-int* const p2 = &x;     // const pointer — can't change where p2 points
-const int* const p3 = &x; // both const
+int* p = &x;
+
+cout << x    << endl;   // 10
+*p = 99;                // change value at the address
+cout << x    << endl;   // 99 — x changed because p points to x
 ```
 
-### References
-
+### References — simpler aliasing
 ```cpp
 int x = 10;
-int& ref = x;       // ref is an alias for x — MUST be initialized
+int& ref = x;   // ref is another name for x (must initialize immediately)
 
-ref = 20;           // x is now 20
-cout << x << endl;  // 20
+ref = 20;
+cout << x << endl;    // 20 — same variable, different name
 
-// References vs Pointers:
-// - References cannot be null
-// - References cannot be reassigned to refer to something else
-// - No need to dereference
-// - Syntax looks like regular variable usage
+// Great for function parameters
+void doubleValue(int& n) {
+    n *= 2;    // modifies original
+}
+int num = 5;
+doubleValue(num);
+cout << num << endl;   // 10
 ```
 
-### Dynamic Memory (Raw — prefer smart pointers)
+### Pointer vs Reference
 
+| Feature | Pointer | Reference |
+|---------|---------|-----------|
+| Can be null | Yes (`nullptr`) | No — always valid |
+| Can change target | Yes | No — fixed to one variable |
+| Syntax to use value | `*ptr` (dereference) | Just use `ref` directly |
+| Typical use | Dynamic memory, arrays | Function parameters |
+
+### nullptr — safe empty pointer
 ```cpp
-// Allocate single value
-int* p = new int(42);
-cout << *p << endl;
-delete p;           // MUST free or memory leak!
-p = nullptr;        // good practice after delete
+int* p = nullptr;   // points to nothing
 
-// Allocate array
-int* arr = new int[10];
-arr[0] = 1;
-delete[] arr;       // use delete[] for arrays
-arr = nullptr;
+if (p == nullptr) {
+    cout << "Pointer is empty — don't dereference!" << endl;
+}
+
+// Never dereference a nullptr or dangling pointer!
+// *p = 5;   // CRASH — writing to address 0
 ```
 
 ---
 
-## 9. Object-Oriented Programming
+## 12. Object-Oriented Programming (OOP)
 
-### Classes & Objects
+**What is OOP?**
+Instead of just writing instructions, you model your program as a collection of **objects** — things that have both data (what they are) and behavior (what they do).
 
+Real world: A Dog has a name, breed, age. It can bark, eat, sleep.
+In C++: A `Dog` class has those properties and methods.
+
+### Class — the blueprint
 ```cpp
+#include <iostream>
+#include <string>
+using namespace std;
+
 class Dog {
-private:                         // accessible only within class
+public:
+    // Data (properties/attributes)
     string name;
+    string breed;
     int age;
 
-public:                          // accessible from anywhere
-    // Constructor
-    Dog(string n, int a) : name(n), age(a) {}
-
-    // Member functions (methods)
-    void bark() const {
+    // Behavior (methods/functions)
+    void bark() {
         cout << name << " says: Woof!" << endl;
     }
 
-    // Getters (accessors)
-    string getName() const { return name; }
-    int getAge() const { return age; }
-
-    // Setters (mutators)
-    void setAge(int a) {
-        if (a >= 0) age = a;
-    }
-
-    // Destructor
-    ~Dog() {
-        cout << name << " destroyed" << endl;
+    void introduce() {
+        cout << "I'm " << name << ", a " << breed
+             << ", " << age << " years old." << endl;
     }
 };
 
-// Create objects
-Dog d1("Rex", 3);
-Dog d2 = Dog("Buddy", 5);
-Dog* d3 = new Dog("Luna", 2);
+int main() {
+    Dog d1;                  // create object from class blueprint
+    d1.name  = "Rex";
+    d1.breed = "Husky";
+    d1.age   = 3;
+    d1.bark();               // Rex says: Woof!
+    d1.introduce();
 
-d1.bark();
-cout << d1.getName() << endl;
-d3->bark();      // arrow operator for pointer to object
-delete d3;
-```
-
-### Constructors
-
-```cpp
-class Point {
-public:
-    double x, y;
-
-    // Default constructor
-    Point() : x(0), y(0) {}
-
-    // Parameterized constructor
-    Point(double x, double y) : x(x), y(y) {}
-
-    // Copy constructor
-    Point(const Point& other) : x(other.x), y(other.y) {}
-
-    // Move constructor (C++11)
-    Point(Point&& other) noexcept : x(other.x), y(other.y) {}
-
-    // Delegating constructor (C++11)
-    Point(double val) : Point(val, val) {}
-};
-```
-
-### Static Members
-
-```cpp
-class Counter {
-private:
-    static int count;   // shared across all instances
-public:
-    Counter() { count++; }
-    ~Counter() { count--; }
-    static int getCount() { return count; }   // static method
-};
-
-int Counter::count = 0;   // definition outside class
-
-Counter c1, c2, c3;
-cout << Counter::getCount() << endl;   // 3
-```
-
-### Friend Functions & Classes
-
-```cpp
-class Box {
-private:
-    double width;
-public:
-    Box(double w) : width(w) {}
-    friend double getWidth(const Box& b);   // friend function
-    friend class BoxPrinter;                // friend class
-};
-
-double getWidth(const Box& b) {
-    return b.width;   // can access private members
+    Dog d2;
+    d2.name  = "Buddy";
+    d2.breed = "Labrador";
+    d2.age   = 5;
+    d2.bark();               // Buddy says: Woof!
+    return 0;
 }
 ```
 
-### Operator Overloading
-
+### Constructor — runs automatically when object is created
 ```cpp
-class Vector2D {
+class Car {
 public:
-    double x, y;
-    Vector2D(double x, double y) : x(x), y(y) {}
+    string brand;
+    string color;
+    int speed;
 
-    // + operator
-    Vector2D operator+(const Vector2D& other) const {
-        return Vector2D(x + other.x, y + other.y);
+    // Constructor — same name as class, no return type
+    Car(string b, string c) {
+        brand = b;
+        color = c;
+        speed = 0;
     }
 
-    // == operator
-    bool operator==(const Vector2D& other) const {
-        return x == other.x && y == other.y;
+    // Cleaner style using initializer list
+    Car(string b, string c) : brand(b), color(c), speed(0) {}
+
+    void accelerate(int amount) {
+        speed += amount;
+        cout << brand << " is now going " << speed << " km/h" << endl;
     }
 
-    // << operator (as friend for output)
-    friend ostream& operator<<(ostream& os, const Vector2D& v) {
-        os << "(" << v.x << ", " << v.y << ")";
-        return os;
-    }
-
-    // [] operator
-    double operator[](int i) const {
-        return i == 0 ? x : y;
-    }
-
-    // prefix ++
-    Vector2D& operator++() {
-        x++; y++;
-        return *this;
+    void info() {
+        cout << color << " " << brand << " at " << speed << " km/h" << endl;
     }
 };
 
-Vector2D a(1, 2), b(3, 4);
-Vector2D c = a + b;
+Car c1("Toyota", "Red");   // constructor called automatically
+Car c2("BMW", "Blue");
+c1.accelerate(50);
+c2.accelerate(100);
+c1.info();
+```
+
+### Encapsulation — private vs public
+```cpp
+class BankAccount {
+private:                      // only accessible INSIDE this class
+    string owner;
+    double balance;
+
+public:                       // accessible from ANYWHERE
+    // Constructor
+    BankAccount(string name, double initialBalance) {
+        owner = name;
+        balance = (initialBalance >= 0) ? initialBalance : 0;
+    }
+
+    // Getter — read-only access to private data
+    double getBalance() const {
+        return balance;
+    }
+
+    string getOwner() const {
+        return owner;
+    }
+
+    // Methods that control how balance changes
+    void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            cout << "Deposited $" << amount << endl;
+        }
+    }
+
+    void withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+            cout << "Withdrew $" << amount << endl;
+        } else {
+            cout << "Insufficient funds or invalid amount" << endl;
+        }
+    }
+
+    void printStatement() const {
+        cout << owner << "'s balance: $" << balance << endl;
+    }
+};
+
+BankAccount acc("Alice", 1000);
+acc.deposit(500);       // Deposited $500
+acc.withdraw(200);      // Withdrew $200
+acc.printStatement();   // Alice's balance: $1300
+// acc.balance = 999999; // ERROR — balance is private!
+```
+
+### Destructor — cleanup when object is destroyed
+```cpp
+class FileManager {
+public:
+    string filename;
+
+    FileManager(string fn) : filename(fn) {
+        cout << "Opening " << filename << endl;
+    }
+
+    ~FileManager() {   // destructor — tilde prefix, no params, no return
+        cout << "Closing " << filename << endl;
+    }
+};
+
+int main() {
+    {
+        FileManager fm("data.txt");   // "Opening data.txt"
+        // use fm...
+    }  // fm goes out of scope here — "Closing data.txt" printed automatically
+    return 0;
+}
+```
+
+### Operator Overloading — make operators work with your types
+```cpp
+class Vector2 {
+public:
+    double x, y;
+
+    Vector2(double x, double y) : x(x), y(y) {}
+
+    // Overload + operator
+    Vector2 operator+(const Vector2& other) const {
+        return Vector2(x + other.x, y + other.y);
+    }
+
+    // Overload == operator
+    bool operator==(const Vector2& other) const {
+        return x == other.x && y == other.y;
+    }
+
+    // Overload << for printing
+    friend ostream& operator<<(ostream& os, const Vector2& v) {
+        os << "(" << v.x << ", " << v.y << ")";
+        return os;
+    }
+};
+
+Vector2 a(1, 2), b(3, 4);
+Vector2 c = a + b;
 cout << c << endl;   // (4, 6)
 ```
 
 ---
 
-## 10. Inheritance & Polymorphism
+## 13. Inheritance & Polymorphism
 
-### Inheritance
+**Inheritance:** A child class gets everything from the parent, then adds its own stuff.
+
+```
+Animal
+├── Dog  (has everything Animal has + dog-specific things)
+├── Cat  (has everything Animal has + cat-specific things)
+└── Bird (has everything Animal has + bird-specific things)
+```
 
 ```cpp
-// Base class
+// Parent (Base) class
 class Animal {
-protected:
+protected:                  // accessible in child classes but not outside
     string name;
     int age;
+
 public:
     Animal(string n, int a) : name(n), age(a) {}
 
-    void breathe() const {
+    void breathe() {
         cout << name << " is breathing" << endl;
     }
 
-    virtual void speak() const {   // virtual = can be overridden
+    // virtual = child classes CAN override this
+    virtual void speak() {
         cout << name << " makes a sound" << endl;
     }
 
-    virtual ~Animal() {}           // always virtual destructor in base class!
+    string getName() { return name; }
+
+    virtual ~Animal() {}    // ALWAYS make destructor virtual in base class!
 };
 
-// Derived class — public inheritance
+// Child (Derived) class
+class Dog : public Animal {
+    string breed;
+public:
+    Dog(string n, int a, string b) : Animal(n, a), breed(b) {}
+
+    void speak() override {     // override keyword: compiler checks if parent has this
+        cout << name << " barks: Woof!" << endl;
+    }
+
+    void fetch() {
+        cout << name << " fetches the ball!" << endl;
+    }
+};
+
 class Cat : public Animal {
 public:
-    Cat(string n, int a) : Animal(n, a) {}  // call base constructor
+    Cat(string n, int a) : Animal(n, a) {}
 
-    void speak() const override {           // override keyword (C++11)
-        cout << name << " says: Meow!" << endl;
+    void speak() override {
+        cout << name << " meows: Meow!" << endl;
     }
 
-    void purr() const {
-        cout << name << " purrs" << endl;
+    void purr() {
+        cout << name << " is purring..." << endl;
     }
 };
+
+int main() {
+    Dog d("Rex", 3, "Husky");
+    Cat c("Luna", 2);
+
+    d.breathe();   // inherited from Animal
+    d.speak();     // Dog's version
+    d.fetch();     // Dog only
+
+    c.breathe();   // inherited from Animal
+    c.speak();     // Cat's version
+    c.purr();      // Cat only
+
+    return 0;
+}
 ```
 
-### Access Specifiers in Inheritance
-
+### Polymorphism — one pointer, many types
 ```cpp
-class Base {
-public:    int pub;
-protected: int prot;
-private:   int priv;
-};
-
-class PublicDerived    : public    Base {};  // pub→public, prot→protected
-class ProtectedDerived : protected Base {};  // pub→protected, prot→protected
-class PrivateDerived   : private   Base {};  // pub→private,  prot→private
-// private is never inherited
-```
-
-### Virtual Functions & Polymorphism
-
-```cpp
+// The real power of virtual functions
 Animal* animals[3];
 animals[0] = new Animal("Generic", 1);
-animals[1] = new Cat("Whiskers", 3);
-animals[2] = new Dog("Rex", 4);
+animals[1] = new Dog("Rex", 3, "Husky");
+animals[2] = new Cat("Luna", 2);
 
 for (int i = 0; i < 3; i++) {
-    animals[i]->speak();   // calls correct version based on actual type!
+    animals[i]->speak();   // calls correct version based on ACTUAL type
 }
 // Output:
 // Generic makes a sound
-// Whiskers says: Meow!
-// Rex says: Woof!
+// Rex barks: Woof!
+// Luna meows: Meow!
 
-// Clean up
 for (int i = 0; i < 3; i++) delete animals[i];
 ```
 
-### Abstract Classes & Pure Virtual Functions
-
+### Abstract class — force child to implement methods
 ```cpp
 class Shape {
 public:
-    virtual double area() const = 0;       // pure virtual — must override
-    virtual double perimeter() const = 0;  // pure virtual
+    // pure virtual = must be implemented by child (= 0 syntax)
+    virtual double area() = 0;
+    virtual double perimeter() = 0;
+    virtual string name() = 0;
 
-    void describe() const {
-        cout << "Area: " << area() << endl;
+    // Shape cannot be instantiated — it's just a contract
+    void print() {
+        cout << name() << ": area=" << area()
+             << ", perimeter=" << perimeter() << endl;
     }
-
     virtual ~Shape() {}
 };
-// Cannot instantiate Shape directly!
 
 class Circle : public Shape {
-    double radius;
+    double r;
 public:
-    Circle(double r) : radius(r) {}
-    double area() const override { return 3.14159 * radius * radius; }
-    double perimeter() const override { return 2 * 3.14159 * radius; }
+    Circle(double r) : r(r) {}
+    double area() override { return 3.14159 * r * r; }
+    double perimeter() override { return 2 * 3.14159 * r; }
+    string name() override { return "Circle(r=" + to_string(r) + ")"; }
 };
 
 class Rectangle : public Shape {
     double w, h;
 public:
     Rectangle(double w, double h) : w(w), h(h) {}
-    double area() const override { return w * h; }
-    double perimeter() const override { return 2 * (w + h); }
-};
-```
-
-### Multiple Inheritance
-
-```cpp
-class Flyable {
-public:
-    virtual void fly() { cout << "Flying" << endl; }
+    double area() override { return w * h; }
+    double perimeter() override { return 2*(w+h); }
+    string name() override { return "Rect(" + to_string(w) + "x" + to_string(h) + ")"; }
 };
 
-class Swimmable {
-public:
-    virtual void swim() { cout << "Swimming" << endl; }
-};
-
-class Duck : public Flyable, public Swimmable {
-    // Inherits both fly() and swim()
-};
-
-Duck d;
-d.fly();
-d.swim();
-```
-
-### Virtual Inheritance (diamond problem solution)
-
-```cpp
-class A { public: int val; };
-class B : virtual public A {};
-class C : virtual public A {};
-class D : public B, public C {};  // only one copy of A::val
+Circle c(5);
+Rectangle r(4, 6);
+c.print();   // Circle(r=5): area=78.539..., perimeter=31.415...
+r.print();   // Rect(4x6): area=24, perimeter=20
 ```
 
 ---
 
-## 11. Templates
-
-### Function Templates
+## 14. File Input & Output
 
 ```cpp
+#include <fstream>
+#include <string>
+using namespace std;
+```
+
+### Writing to a file
+```cpp
+ofstream file("notes.txt");   // creates/overwrites the file
+
+if (!file.is_open()) {
+    cout << "Could not open file!" << endl;
+    return 1;
+}
+
+file << "Line 1: Hello" << endl;
+file << "Line 2: World" << endl;
+file << "Number: " << 42 << endl;
+
+file.close();
+cout << "Done writing." << endl;
+```
+
+### Reading from a file
+```cpp
+ifstream file("notes.txt");
+
+if (!file.is_open()) {
+    cout << "File not found!" << endl;
+    return 1;
+}
+
+string line;
+while (getline(file, line)) {    // read one line at a time
+    cout << line << endl;
+}
+file.close();
+```
+
+### Append mode — add to existing file
+```cpp
+ofstream file("log.txt", ios::app);  // ios::app = don't erase, add to end
+file << "New entry at line 5" << endl;
+file.close();
+```
+
+### Read numbers from file
+```cpp
+// Suppose file contains: 10 20 30 40 50
+ifstream file("numbers.txt");
+int sum = 0, n;
+while (file >> n) {    // read numbers one by one
+    sum += n;
+}
+cout << "Sum: " << sum << endl;   // 150
+file.close();
+```
+
+---
+
+## 15. Error Handling (Exceptions)
+
+**The problem:** Things go wrong at runtime — division by zero, file not found, bad input. Without error handling, your program just crashes.
+
+**The solution:** Throw exceptions when something goes wrong. Catch them and handle gracefully.
+
+```
+try {
+    // code that might fail
+} catch (ExceptionType& e) {
+    // handle the failure
+}
+```
+
+```cpp
+#include <stdexcept>
+using namespace std;
+
+double safeDivide(double a, double b) {
+    if (b == 0) {
+        throw runtime_error("Division by zero!");  // throw stops execution
+    }
+    return a / b;
+}
+
+int main() {
+    try {
+        cout << safeDivide(10, 2) << endl;   // 5 — works
+        cout << safeDivide(10, 0) << endl;   // throws exception!
+        cout << "Never reached" << endl;
+    }
+    catch (const runtime_error& e) {
+        cout << "Caught error: " << e.what() << endl;
+    }
+
+    cout << "Program continues normally here" << endl;
+    return 0;
+}
+```
+
+### Standard exception types
+
+| Exception | Use it when |
+|-----------|------------|
+| `runtime_error` | General unexpected runtime problem |
+| `invalid_argument` | Bad parameter passed to function |
+| `out_of_range` | Index/value out of valid range |
+| `logic_error` | Programmer logic error |
+| `bad_alloc` | Memory allocation failed |
+
+### Custom exception
+```cpp
+class InsufficientFundsError : public exception {
+    string message;
+    double amount;
+public:
+    InsufficientFundsError(double amt) : amount(amt) {
+        message = "Insufficient funds: tried to withdraw $" + to_string(amt);
+    }
+    const char* what() const noexcept override {
+        return message.c_str();
+    }
+};
+
+void withdraw(double balance, double amount) {
+    if (amount > balance) {
+        throw InsufficientFundsError(amount);
+    }
+    cout << "Withdrew $" << amount << endl;
+}
+
+try {
+    withdraw(100.0, 200.0);
+} catch (const InsufficientFundsError& e) {
+    cout << "Error: " << e.what() << endl;
+}
+```
+
+---
+
+## 16. The STL — Standard Template Library
+
+**The STL is a ready-made collection of data structures and algorithms.**
+No need to build a linked list or a sort yourself — it's all here, tested and fast.
+
+### vector — the go-to container
+```cpp
+#include <vector>
+vector<int> v = {5, 3, 1, 4, 2};
+
+v.push_back(6);            // add to end
+v.pop_back();              // remove from end
+v.insert(v.begin(), 0);   // add at front
+v.erase(v.begin() + 2);   // remove element at index 2
+
+cout << v.size()  << endl; // number of elements
+cout << v.empty() << endl; // 0 (not empty)
+cout << v[0]      << endl; // first element
+cout << v.front() << endl; // first element
+cout << v.back()  << endl; // last element
+
+for (int x : v) cout << x << " ";
+```
+
+### map — dictionary / key-value pairs
+```cpp
+#include <map>
+map<string, int> ages;
+
+ages["Alice"]   = 25;
+ages["Bob"]     = 30;
+ages["Charlie"] = 22;
+
+cout << ages["Alice"] << endl;   // 25
+
+// Check if key exists
+if (ages.count("Bob")) {
+    cout << "Bob is " << ages["Bob"] << endl;
+}
+
+// Iterate (sorted alphabetically)
+for (auto& pair : ages) {
+    cout << pair.first << " → " << pair.second << endl;
+}
+
+// Remove
+ages.erase("Bob");
+cout << ages.size() << endl;   // 2
+```
+
+### unordered_map — faster (no sorting)
+```cpp
+#include <unordered_map>
+unordered_map<string, int> wordCount;
+
+string words[] = {"apple","banana","apple","cherry","apple","banana"};
+for (string w : words) {
+    wordCount[w]++;   // if key doesn't exist, default is 0
+}
+
+for (auto& [word, count] : wordCount) {
+    cout << word << ": " << count << endl;
+}
+// apple: 3, banana: 2, cherry: 1
+```
+
+### set — unique sorted values
+```cpp
+#include <set>
+set<int> s;
+s.insert(5);
+s.insert(3);
+s.insert(1);
+s.insert(3);   // duplicate — ignored
+s.insert(5);   // duplicate — ignored
+
+for (int x : s) cout << x << " ";   // 1 3 5 — sorted, no duplicates
+
+cout << s.count(3)  << endl;   // 1 (exists)
+cout << s.count(99) << endl;   // 0 (doesn't exist)
+
+s.erase(3);
+```
+
+### stack and queue
+```cpp
+#include <stack>
+#include <queue>
+
+// Stack = Last In, First Out (like a pile of plates)
+stack<int> st;
+st.push(10); st.push(20); st.push(30);
+cout << st.top() << endl;   // 30 — look at top
+st.pop();                   // remove top
+cout << st.top() << endl;   // 20
+
+// Queue = First In, First Out (like a line at a store)
+queue<string> q;
+q.push("Alice"); q.push("Bob"); q.push("Charlie");
+cout << q.front() << endl;   // Alice — look at front
+q.pop();                     // remove front
+cout << q.front() << endl;   // Bob
+```
+
+### Algorithms library
+```cpp
+#include <algorithm>
+#include <numeric>
+
+vector<int> v = {5, 2, 8, 1, 9, 3, 7, 4, 6};
+
+sort(v.begin(), v.end());                       // ascending:  1 2 3 4 5 6 7 8 9
+sort(v.begin(), v.end(), greater<int>());        // descending: 9 8 7 6 5 4 3 2 1
+
+int mn    = *min_element(v.begin(), v.end());    // smallest
+int mx    = *max_element(v.begin(), v.end());    // largest
+int total = accumulate(v.begin(), v.end(), 0);   // sum
+
+// Find
+auto it = find(v.begin(), v.end(), 7);
+if (it != v.end()) cout << "Found 7!" << endl;
+
+// Count
+int cnt = count(v.begin(), v.end(), 5);
+
+// Reverse
+reverse(v.begin(), v.end());
+
+// Binary search (array must be sorted first!)
+sort(v.begin(), v.end());
+bool found = binary_search(v.begin(), v.end(), 5);
+```
+
+---
+
+# 🔴 ADVANCED
+
+---
+
+## 17. Templates
+
+**The problem:** You want a `maximum` function that works for int, double, string, any type.
+**Without templates:** Write one for each type. Tedious.
+**With templates:** Write once, use for any type.
+
+```cpp
+// Without templates
+int   maxInt   (int a,    int b)    { return a > b ? a : b; }
+double maxDouble(double a, double b) { return a > b ? a : b; }
+// ... repeat for every type
+
+// WITH templates — one function for everything
 template <typename T>
 T maximum(T a, T b) {
     return (a > b) ? a : b;
 }
 
-cout << maximum(3, 7) << endl;       // 7 (int)
-cout << maximum(3.5, 2.1) << endl;   // 3.5 (double)
-cout << maximum('a', 'z') << endl;   // z (char)
-
-// Multiple type parameters
-template <typename T, typename U>
-auto add(T a, U b) -> decltype(a + b) {
-    return a + b;
-}
+cout << maximum(3, 7)         << endl;  // 7     (int)
+cout << maximum(3.5, 2.1)     << endl;  // 3.5   (double)
+cout << maximum('a', 'z')     << endl;  // z     (char)
+cout << maximum(string("hi"), string("yo")) << endl;  // yo
 ```
 
-### Class Templates
-
+### Class templates
 ```cpp
 template <typename T>
 class Stack {
-private:
     vector<T> data;
 public:
-    void push(const T& val) { data.push_back(val); }
-    void pop() { data.pop_back(); }
-    T top() const { return data.back(); }
-    bool empty() const { return data.empty(); }
-    int size() const { return data.size(); }
+    void push(T val)  { data.push_back(val); }
+    void pop()        { data.pop_back(); }
+    T    top()        { return data.back(); }
+    bool empty()      { return data.empty(); }
+    int  size()       { return data.size(); }
 };
 
-Stack<int> intStack;
-intStack.push(10);
-intStack.push(20);
-cout << intStack.top() << endl;   // 20
-
+Stack<int>    intStack;
 Stack<string> strStack;
+
+intStack.push(1); intStack.push(2); intStack.push(3);
+cout << intStack.top() << endl;   // 3
+
 strStack.push("hello");
+strStack.push("world");
+cout << strStack.top() << endl;   // world
 ```
 
-### Template Specialization
-
+### Multiple template types
 ```cpp
-// Primary template
-template <typename T>
-class TypeInfo {
+template <typename Key, typename Value>
+class Pair {
 public:
-    static string name() { return "unknown"; }
+    Key key;
+    Value value;
+
+    Pair(Key k, Value v) : key(k), value(v) {}
+
+    void print() {
+        cout << key << " : " << value << endl;
+    }
 };
 
-// Full specialization for int
-template <>
-class TypeInfo<int> {
-public:
-    static string name() { return "int"; }
-};
+Pair<string, int>    p1("age", 25);
+Pair<int, double>    p2(1, 3.14);
+Pair<string, string> p3("name", "Alice");
 
-// Partial specialization for pointers
-template <typename T>
-class TypeInfo<T*> {
-public:
-    static string name() { return TypeInfo<T>::name() + "*"; }
-};
-```
-
-### Variadic Templates (C++11)
-
-```cpp
-// Base case
-void print() {}
-
-// Recursive variadic template
-template <typename T, typename... Args>
-void print(T first, Args... rest) {
-    cout << first << " ";
-    print(rest...);
-}
-
-print(1, 2.5, "hello", 'c');   // 1 2.5 hello c
-```
-
-### Non-Type Template Parameters
-
-```cpp
-template <typename T, int N>
-class Array {
-    T data[N];
-public:
-    int size() const { return N; }
-    T& operator[](int i) { return data[i]; }
-};
-
-Array<int, 5> arr;
-arr[0] = 42;
-cout << arr.size() << endl;   // 5
+p1.print();  // age : 25
+p2.print();  // 1 : 3.14
+p3.print();  // name : Alice
 ```
 
 ---
 
-## 12. STL (Standard Template Library)
+## 18. Smart Pointers & Memory Management
 
-### Containers Overview
-
-| Container | Header | Description |
-|-----------|--------|-------------|
-| `vector` | `<vector>` | Dynamic array |
-| `deque` | `<deque>` | Double-ended queue |
-| `list` | `<list>` | Doubly linked list |
-| `forward_list` | `<forward_list>` | Singly linked list |
-| `array` | `<array>` | Fixed-size array |
-| `stack` | `<stack>` | LIFO stack (adaptor) |
-| `queue` | `<queue>` | FIFO queue (adaptor) |
-| `priority_queue` | `<queue>` | Heap-based priority queue |
-| `set` | `<set>` | Sorted unique keys |
-| `multiset` | `<set>` | Sorted non-unique keys |
-| `map` | `<map>` | Sorted key-value pairs |
-| `multimap` | `<map>` | Sorted non-unique key-value |
-| `unordered_set` | `<unordered_set>` | Hash set |
-| `unordered_map` | `<unordered_map>` | Hash map |
-
-### map & unordered_map
-
+**The problem with raw pointers:**
 ```cpp
-#include <map>
-#include <unordered_map>
-
-// map (sorted by key)
-map<string, int> scores;
-scores["Alice"] = 95;
-scores["Bob"] = 87;
-scores.insert({"Charlie", 92});
-
-// Access
-cout << scores["Alice"] << endl;
-cout << scores.at("Bob") << endl;    // throws if not found
-
-// Check existence
-if (scores.count("Alice")) { /* exists */ }
-if (scores.find("Alice") != scores.end()) { /* exists */ }
-
-// Iterate
-for (auto& [key, value] : scores) {    // C++17 structured binding
-    cout << key << ": " << value << endl;
-}
-
-// unordered_map (O(1) average lookup, no sorting)
-unordered_map<string, int> umap;
-umap["x"] = 1;
-umap["y"] = 2;
+int* p = new int(5);
+// ... 200 lines of code ...
+// oops, forgot delete p → memory leak forever!
 ```
 
-### set & unordered_set
+**The solution: smart pointers that delete themselves.**
 
-```cpp
-#include <set>
-
-set<int> s = {5, 3, 1, 4, 2};   // automatically sorted: {1,2,3,4,5}
-s.insert(6);
-s.erase(3);
-cout << s.count(1) << endl;      // 1 (exists) or 0 (doesn't)
-
-for (int x : s) cout << x << " ";  // 1 2 4 5 6
-```
-
-### stack, queue, priority_queue
-
-```cpp
-#include <stack>
-#include <queue>
-
-// Stack (LIFO)
-stack<int> st;
-st.push(1); st.push(2); st.push(3);
-cout << st.top() << endl;   // 3
-st.pop();
-
-// Queue (FIFO)
-queue<int> q;
-q.push(1); q.push(2); q.push(3);
-cout << q.front() << endl;  // 1
-q.pop();
-
-// Priority Queue (max-heap by default)
-priority_queue<int> pq;
-pq.push(5); pq.push(1); pq.push(9);
-cout << pq.top() << endl;   // 9 (largest first)
-
-// Min-heap
-priority_queue<int, vector<int>, greater<int>> minpq;
-minpq.push(5); minpq.push(1); minpq.push(9);
-cout << minpq.top() << endl;  // 1
-```
-
-### Iterators
-
-```cpp
-vector<int> v = {1, 2, 3, 4, 5};
-
-// Iterator types
-vector<int>::iterator it = v.begin();
-auto it2 = v.begin();      // use auto
-
-// Forward iteration
-for (auto it = v.begin(); it != v.end(); ++it) {
-    cout << *it << " ";
-}
-
-// Reverse iteration
-for (auto it = v.rbegin(); it != v.rend(); ++it) {
-    cout << *it << " ";
-}
-
-// Useful iterator functions
-advance(it, 3);             // move forward 3 steps
-distance(v.begin(), it);    // distance between iterators
-next(it, 2);                // iterator 2 steps ahead (doesn't modify)
-prev(it, 1);                // iterator 1 step back
-```
-
-### Algorithms (`<algorithm>`)
-
-```cpp
-#include <algorithm>
-#include <numeric>
-
-vector<int> v = {5, 2, 8, 1, 9, 3};
-
-// Sorting
-sort(v.begin(), v.end());                              // ascending
-sort(v.begin(), v.end(), greater<int>());              // descending
-sort(v.begin(), v.end(), [](int a, int b){ return a > b; }); // custom
-
-// Searching
-bool found = binary_search(v.begin(), v.end(), 5);    // requires sorted!
-auto it = find(v.begin(), v.end(), 8);                 // linear search
-auto it2 = lower_bound(v.begin(), v.end(), 5);         // first >= 5
-auto it3 = upper_bound(v.begin(), v.end(), 5);         // first > 5
-
-// Min/Max
-int mn = *min_element(v.begin(), v.end());
-int mx = *max_element(v.begin(), v.end());
-auto [lo, hi] = minmax_element(v.begin(), v.end());
-
-// Transform & Accumulate
-transform(v.begin(), v.end(), v.begin(), [](int x){ return x * 2; });
-int sum = accumulate(v.begin(), v.end(), 0);
-int product = accumulate(v.begin(), v.end(), 1, multiplies<int>());
-
-// Count & Remove
-int cnt = count(v.begin(), v.end(), 5);
-int cnt2 = count_if(v.begin(), v.end(), [](int x){ return x > 3; });
-auto newEnd = remove(v.begin(), v.end(), 5);      // doesn't shrink!
-v.erase(newEnd, v.end());                          // erase removed elements
-
-// Fill & Generate
-fill(v.begin(), v.end(), 0);
-generate(v.begin(), v.end(), [n=0]() mutable { return n++; });
-
-// Reverse & Rotate
-reverse(v.begin(), v.end());
-rotate(v.begin(), v.begin() + 2, v.end());
-
-// Unique
-sort(v.begin(), v.end());
-auto last = unique(v.begin(), v.end());    // remove consecutive duplicates
-v.erase(last, v.end());
-
-// Copy & Move
-vector<int> dest(v.size());
-copy(v.begin(), v.end(), dest.begin());
-copy_if(v.begin(), v.end(), back_inserter(dest), [](int x){ return x > 3; });
-```
-
----
-
-## 13. Memory Management
-
-### Stack vs Heap
-
-```
-Stack:                        Heap:
-- Automatic lifetime          - Manual lifetime (new/delete)
-- Fast allocation             - Slower allocation
-- Limited size                - Large, limited by RAM
-- LIFO order                  - Random access
-- Local variables             - Dynamic allocation
-```
-
-### Smart Pointers (C++11) — PREFER OVER RAW POINTERS
-
+### unique_ptr — one owner, auto-deleted
 ```cpp
 #include <memory>
 
-// unique_ptr — sole ownership, auto-deleted when out of scope
-unique_ptr<int> up = make_unique<int>(42);
-cout << *up << endl;
-// No need to delete — automatic!
+// Old way (dangerous):
+Dog* d = new Dog("Rex", 3, "Husky");
+d->bark();
+delete d;   // must remember this!
 
-unique_ptr<int[]> arr = make_unique<int[]>(10);  // for arrays
+// New way (safe):
+auto d = make_unique<Dog>("Rex", 3, "Husky");
+d->bark();
+// automatically deleted when d goes out of scope — no delete needed!
 
-// Transfer ownership with move
-unique_ptr<int> up2 = move(up);    // up is now null
-// up2 owns the resource now
+// Transfer ownership
+auto d2 = move(d);   // d is now null, d2 owns the Dog
+// d2.bark();        // works
+// d.bark();         // crash — d is null
+```
 
-// shared_ptr — shared ownership, reference counted
-shared_ptr<int> sp1 = make_shared<int>(100);
-shared_ptr<int> sp2 = sp1;          // both own it, ref count = 2
-cout << sp1.use_count() << endl;    // 2
-sp1.reset();                        // ref count = 1
-// resource freed when last shared_ptr goes out of scope
+### shared_ptr — multiple owners
+```cpp
+auto sp1 = make_shared<string>("Hello");
+auto sp2 = sp1;     // both own the string, reference count = 2
+auto sp3 = sp1;     // count = 3
 
-// weak_ptr — non-owning reference (avoids circular references)
-weak_ptr<int> wp = sp2;
-if (auto locked = wp.lock()) {      // try to get shared_ptr
-    cout << *locked << endl;
+cout << sp1.use_count() << endl;   // 3
+cout << *sp1 << endl;              // Hello
+
+sp1.reset();   // count = 2
+sp2.reset();   // count = 1
+// string deleted when sp3 goes out of scope (count reaches 0)
+```
+
+### weak_ptr — observe without owning
+```cpp
+auto sp = make_shared<int>(42);
+weak_ptr<int> wp = sp;   // doesn't increase ref count
+
+// Try to access
+if (auto locked = wp.lock()) {
+    cout << *locked << endl;   // 42
 } else {
-    cout << "Resource gone" << endl;
+    cout << "Object was deleted" << endl;
+}
+
+sp.reset();   // delete the int
+
+if (wp.expired()) {
+    cout << "wp sees it's gone" << endl;
 }
 ```
 
-### RAII (Resource Acquisition Is Initialization)
-
-```cpp
-// RAII — tie resource lifetime to object lifetime
-class FileHandle {
-    FILE* file;
-public:
-    FileHandle(const char* name, const char* mode) {
-        file = fopen(name, mode);
-        if (!file) throw runtime_error("Cannot open file");
-    }
-    ~FileHandle() {
-        if (file) fclose(file);   // always released
-    }
-    FILE* get() { return file; }
-};
-
-// File is automatically closed when fh goes out of scope
-// Even if an exception is thrown!
-{
-    FileHandle fh("data.txt", "r");
-    // use fh.get()
-}  // fh destructor called here — file closed
+### Stack vs Heap
 ```
-
-### Memory Layout
-
-```
-High address  ┌──────────────┐
-              │   Stack      │  ← grows downward
-              │              │
-              │     ↓        │
-              │              │
-              │     ↑        │
-              │              │
-              │   Heap       │  ← grows upward
-              ├──────────────┤
-              │   BSS        │  ← uninitialized globals
-              ├──────────────┤
-              │   Data       │  ← initialized globals/statics
-              ├──────────────┤
-Low address   │   Text/Code  │  ← program instructions
-              └──────────────┘
+Stack (local variables):        Heap (new/dynamic):
+───────────────────────         ───────────────────────
+int x = 5;                      int* p = new int(5);
+Auto-deleted when out of scope  Must delete manually (or smart ptr)
+Very fast                       Slower
+Limited size (~1-8 MB)          Large (limited by RAM)
 ```
 
 ---
 
-## 14. Exception Handling
+## 19. Modern C++ (C++11 to C++20)
 
-### try / catch / throw
-
+### auto — let compiler determine type
 ```cpp
-#include <stdexcept>
+auto x = 42;               // int
+auto pi = 3.14;            // double
+auto name = string("Bob"); // string
 
-double divide(double a, double b) {
-    if (b == 0) throw invalid_argument("Division by zero!");
-    return a / b;
-}
-
-try {
-    double result = divide(10, 0);
-    cout << result << endl;
-} catch (const invalid_argument& e) {
-    cerr << "Invalid argument: " << e.what() << endl;
-} catch (const runtime_error& e) {
-    cerr << "Runtime error: " << e.what() << endl;
-} catch (const exception& e) {
-    cerr << "Exception: " << e.what() << endl;
-} catch (...) {
-    cerr << "Unknown exception" << endl;
-}
+// Super useful with complex types
+vector<pair<string, int>> data = {{"a", 1}};
+auto it = data.begin();    // much nicer than: vector<pair<string,int>>::iterator it
 ```
 
-### Standard Exception Hierarchy
-
-```
-std::exception
-├── std::logic_error
-│   ├── std::invalid_argument
-│   ├── std::domain_error
-│   ├── std::length_error
-│   └── std::out_of_range
-└── std::runtime_error
-    ├── std::range_error
-    ├── std::overflow_error
-    └── std::underflow_error
-```
-
-### Custom Exceptions
-
+### Lambda functions — tiny anonymous functions
 ```cpp
-class NetworkError : public runtime_error {
-    int errorCode;
-public:
-    NetworkError(const string& msg, int code)
-        : runtime_error(msg), errorCode(code) {}
-    int getCode() const { return errorCode; }
-};
+// Basic
+auto sayHi = []() { cout << "Hi!" << endl; };
+sayHi();
 
-try {
-    throw NetworkError("Connection refused", 503);
-} catch (const NetworkError& e) {
-    cerr << e.what() << " (code: " << e.getCode() << ")" << endl;
-}
+// With parameters
+auto add = [](int a, int b) { return a + b; };
+cout << add(3, 4) << endl;  // 7
+
+// Capture surrounding variables
+int x = 10;
+auto addX = [x](int n) { return n + x; };  // captures x by value
+cout << addX(5) << endl;  // 15
+
+int counter = 0;
+auto increment = [&counter]() { counter++; };  // captures by reference
+increment(); increment(); increment();
+cout << counter << endl;  // 3
+
+// Used with sort
+vector<int> v = {3, 1, 4, 1, 5, 9};
+sort(v.begin(), v.end(), [](int a, int b) { return a > b; });  // descending
+for (int n : v) cout << n << " ";  // 9 5 4 3 1 1
 ```
 
-### noexcept
-
+### Range-based for with structured bindings (C++17)
 ```cpp
-void safeFunction() noexcept {    // guarantees no exceptions thrown
-    // ...
+map<string, int> scores = {{"Alice", 95}, {"Bob", 87}, {"Charlie", 92}};
+
+// Old way
+for (auto& pair : scores) {
+    cout << pair.first << ": " << pair.second << endl;
 }
 
-// Move constructors/operators should be noexcept for optimization
-MyClass(MyClass&& other) noexcept { /* ... */ }
+// New way (C++17) — much cleaner
+for (auto& [name, score] : scores) {
+    cout << name << ": " << score << endl;
+}
 ```
 
----
-
-## 15. File I/O
-
-### Writing to a File
-
+### Move semantics — avoid expensive copies
 ```cpp
-#include <fstream>
-#include <iostream>
+// When you have a large object and no longer need the source:
+vector<int> original(1000000, 42);   // 1 million elements
 
-// Write text to file
-ofstream outFile("output.txt");
-if (!outFile) {
-    cerr << "Cannot open file!" << endl;
-    return 1;
-}
-outFile << "Hello, File!" << endl;
-outFile << "Line 2" << endl;
-outFile.close();
+// COPY — slow: allocates new memory and copies everything
+vector<int> copy1 = original;
 
-// Append to file
-ofstream appendFile("output.txt", ios::app);
-appendFile << "Appended line" << endl;
+// MOVE — fast: just transfers the pointer, no copying
+vector<int> moved = move(original);
+// original is now empty, moved owns the data
 ```
 
-### Reading from a File
-
-```cpp
-// Read line by line
-ifstream inFile("input.txt");
-if (!inFile) { cerr << "File not found!"; return 1; }
-
-string line;
-while (getline(inFile, line)) {
-    cout << line << endl;
-}
-inFile.close();
-
-// Read word by word
-ifstream wordFile("input.txt");
-string word;
-while (wordFile >> word) {
-    cout << word << " ";
-}
-
-// Read entire file into string
-ifstream f("input.txt");
-string content((istreambuf_iterator<char>(f)),
-                istreambuf_iterator<char>());
-```
-
-### Binary File I/O
-
-```cpp
-struct Record {
-    int id;
-    double value;
-    char name[50];
-};
-
-// Write binary
-ofstream bin("data.bin", ios::binary);
-Record r = {1, 3.14, "Alice"};
-bin.write(reinterpret_cast<char*>(&r), sizeof(r));
-
-// Read binary
-ifstream binIn("data.bin", ios::binary);
-Record r2;
-binIn.read(reinterpret_cast<char*>(&r2), sizeof(r2));
-cout << r2.id << " " << r2.value << " " << r2.name << endl;
-```
-
-### String Streams
-
-```cpp
-#include <sstream>
-
-// ostringstream — build strings
-ostringstream oss;
-oss << "Value: " << 42 << ", Pi: " << 3.14;
-string result = oss.str();
-
-// istringstream — parse strings
-string data = "10 20 30 40";
-istringstream iss(data);
-int n;
-while (iss >> n) {
-    cout << n * 2 << " ";
-}
-```
-
----
-
-## 16. Modern C++ (C++11/14/17/20)
-
-### auto & decltype
-
-```cpp
-auto x = 42;              // int
-auto y = 3.14;            // double
-auto z = "hello"s;        // std::string (with 's' suffix)
-
-auto it = vec.begin();    // iterator type
-
-decltype(x) a = x;        // same type as x
-decltype(x + y) b = x;   // type of expression x+y
-```
-
-### Range-Based For & Structured Bindings (C++17)
-
-```cpp
-map<string, int> m = {{"a", 1}, {"b", 2}};
-for (auto& [key, val] : m) {
-    cout << key << "=" << val << endl;
-}
-
-auto [x, y, z] = make_tuple(1, 2.0, "three");
-```
-
-### Move Semantics & Rvalue References
-
-```cpp
-// lvalue = has a name/address
-// rvalue = temporary, no persistent address
-
-string s1 = "Hello";
-string s2 = s1;              // copy — expensive for large objects
-string s3 = move(s1);        // move — s1 is now empty, s3 owns data
-
-// Rvalue reference
-void process(string&& s) {   // only binds to rvalues/temporaries
-    // can safely "steal" resources from s
-}
-process(string("temp"));     // OK — temporary is rvalue
-// process(s2);              // ERROR — s2 is lvalue
-
-// Perfect forwarding
-template <typename T>
-void wrapper(T&& arg) {
-    process(forward<T>(arg));  // forward preserves lvalue/rvalue-ness
-}
-```
-
-### std::optional (C++17)
-
+### std::optional — value that might not exist (C++17)
 ```cpp
 #include <optional>
 
-optional<int> findUser(int id) {
-    if (id == 42) return 42;
-    return nullopt;   // no value
+optional<string> findUser(int id) {
+    if (id == 1) return "Alice";
+    if (id == 2) return "Bob";
+    return nullopt;   // no user found
 }
 
-auto user = findUser(42);
-if (user.has_value()) {
-    cout << *user << endl;       // dereference
-    cout << user.value() << endl;
-}
-cout << user.value_or(-1) << endl;  // default if empty
-```
-
-### std::variant (C++17)
-
-```cpp
-#include <variant>
-
-variant<int, double, string> v;
-v = 42;
-v = 3.14;
-v = "hello";
-
-// Check and get
-if (holds_alternative<string>(v)) {
-    cout << get<string>(v) << endl;
+auto user = findUser(1);
+if (user) {
+    cout << "Found: " << *user << endl;   // Found: Alice
 }
 
-// Visit
-visit([](auto& val) { cout << val << endl; }, v);
+auto missing = findUser(99);
+cout << missing.value_or("Unknown") << endl;  // Unknown
 ```
 
-### std::any (C++17)
-
+### constexpr — compute at compile time
 ```cpp
-#include <any>
-
-any a = 42;
-a = 3.14;
-a = string("hello");
-
-cout << any_cast<string>(a) << endl;
-```
-
-### Concepts (C++20)
-
-```cpp
-#include <concepts>
-
-// Define concept
-template <typename T>
-concept Numeric = is_arithmetic_v<T>;
-
-// Use concept
-template <Numeric T>
-T add(T a, T b) { return a + b; }
-
-// Abbreviated function template
-auto multiply(Numeric auto a, Numeric auto b) {
-    return a * b;
+constexpr int factorial(int n) {
+    return n <= 1 ? 1 : n * factorial(n - 1);
 }
-```
 
-### Ranges (C++20)
-
-```cpp
-#include <ranges>
-#include <algorithm>
-
-vector<int> v = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-
-// Filter and transform with ranges
-auto result = v
-    | views::filter([](int x) { return x % 2 == 0; })   // even numbers
-    | views::transform([](int x) { return x * x; });      // square them
-
-for (int x : result) cout << x << " ";   // 4 16 36 64 100
-```
-
-### constexpr if (C++17)
-
-```cpp
-template <typename T>
-void process(T value) {
-    if constexpr (is_integral_v<T>) {
-        cout << "Integer: " << value << endl;
-    } else if constexpr (is_floating_point_v<T>) {
-        cout << "Float: " << value << endl;
-    } else {
-        cout << "Other: " << value << endl;
-    }
-}
+// Computed at compile time — zero runtime cost!
+constexpr int f10 = factorial(10);   // 3628800
 ```
 
 ---
 
-## 17. Concurrency & Multithreading
+## 20. Multithreading
 
-### std::thread (C++11)
+**Running multiple tasks at the same time.**
+Instead of: download file, then process it, then send email (sequential)
+Do: all three simultaneously!
 
 ```cpp
 #include <thread>
-#include <iostream>
+#include <chrono>
+using namespace std;
 
-void task(int id) {
-    cout << "Thread " << id << " running" << endl;
+void task1() {
+    cout << "Task 1 starting" << endl;
+    this_thread::sleep_for(chrono::seconds(2));
+    cout << "Task 1 done!" << endl;
+}
+
+void task2() {
+    cout << "Task 2 starting" << endl;
+    this_thread::sleep_for(chrono::seconds(1));
+    cout << "Task 2 done!" << endl;
 }
 
 int main() {
-    thread t1(task, 1);
-    thread t2(task, 2);
+    thread t1(task1);   // start task1 in background
+    thread t2(task2);   // start task2 in background
 
-    t1.join();   // wait for t1 to finish
-    t2.join();   // wait for t2 to finish
+    t1.join();          // wait for t1 to finish
+    t2.join();          // wait for t2 to finish
 
-    // Detach (fire and forget — don't wait)
-    thread t3(task, 3);
-    t3.detach();
-
+    cout << "Both done!" << endl;
+    // Total time: ~2 seconds, not 3! (they ran at the same time)
     return 0;
 }
 ```
 
-### Mutex & Lock
-
+### mutex — prevent data corruption
 ```cpp
-#include <thread>
 #include <mutex>
 
 mutex mtx;
 int counter = 0;
 
+// Without mutex: two threads might read/write counter simultaneously = wrong result
+// With mutex: only one thread at a time can modify counter
+
 void increment() {
     for (int i = 0; i < 1000; i++) {
-        lock_guard<mutex> lock(mtx);   // RAII lock — auto-released
+        lock_guard<mutex> lock(mtx);  // locks mutex, auto-unlocks when done
         counter++;
     }
 }
 
-// unique_lock — more flexible
-void task2() {
-    unique_lock<mutex> lock(mtx);
-    counter++;
-    lock.unlock();   // manual unlock
-    // ... do other stuff
-    lock.lock();     // re-lock
-}
+thread t1(increment);
+thread t2(increment);
+t1.join(); t2.join();
+cout << counter << endl;  // guaranteed 2000
 ```
 
-### std::async & Futures
-
+### async — run and get result later
 ```cpp
 #include <future>
 
-int heavyComputation(int n) {
-    // simulate work
-    return n * n;
+int slowCalculation(int n) {
+    this_thread::sleep_for(chrono::seconds(3));
+    return n * n * n;
 }
 
-// Run asynchronously
-future<int> f = async(launch::async, heavyComputation, 10);
-// Do other work here...
-int result = f.get();   // blocks until result is ready
-cout << result << endl; // 100
-```
+// Start in background
+auto result = async(launch::async, slowCalculation, 5);
 
-### Atomic Variables
+// Do other work while it runs...
+cout << "Working on other stuff..." << endl;
+this_thread::sleep_for(chrono::seconds(1));
+cout << "Still doing stuff..." << endl;
 
-```cpp
-#include <atomic>
-
-atomic<int> atomicCounter = 0;
-
-void safeIncrement() {
-    for (int i = 0; i < 1000; i++) {
-        atomicCounter++;   // thread-safe, no mutex needed
-    }
-}
-```
-
-### condition_variable
-
-```cpp
-#include <condition_variable>
-
-mutex mtx;
-condition_variable cv;
-bool ready = false;
-
-void worker() {
-    unique_lock<mutex> lock(mtx);
-    cv.wait(lock, []{ return ready; });   // wait until ready == true
-    cout << "Worker running!" << endl;
-}
-
-void producer() {
-    {
-        lock_guard<mutex> lock(mtx);
-        ready = true;
-    }
-    cv.notify_one();   // wake up one waiting thread
-}
+// Get result (waits if not ready)
+cout << "Result: " << result.get() << endl;  // 125
 ```
 
 ---
 
-## 18. Best Practices & Common Mistakes
+## 21. Best Practices & Common Mistakes
 
-### Best Practices
+### ✅ Good habits
 
 ```cpp
-// 1. Prefer smart pointers over raw pointers
-auto ptr = make_unique<MyClass>();   // NOT: MyClass* ptr = new MyClass();
-
-// 2. Use const wherever possible
-const string& getName() const;
-void process(const vector<int>& v);
-
-// 3. Use range-based for loops
-for (const auto& item : container) { /* ... */ }
-
-// 4. Prefer {} initialization (prevents narrowing)
-int x{42};            // NOT: int x = 42.7; (silently truncates)
-
-// 5. Use auto to reduce verbosity
-auto it = myMap.find(key);   // NOT: map<string,int>::iterator it = ...
-
-// 6. Always initialize variables
-int x = 0;
+// 1. Always initialize variables
+int x = 0;          // not: int x;  (could be garbage)
 string s = "";
+bool flag = false;
 
-// 7. Use override keyword
-void myFunc() override;  // compiler error if base doesn't have virtual myFunc
+// 2. Use smart pointers — never raw new/delete
+auto ptr = make_unique<MyClass>();  // auto-managed
 
-// 8. Rule of 0/3/5
-// Rule of 0: if you don't manage resources, don't write destructor/copy/move
-// Rule of 3: if you define destructor, also define copy constructor + copy assignment
-// Rule of 5: if you define any of 3, also define move constructor + move assignment
+// 3. Pass large objects by const reference
+void process(const vector<int>& v);  // not by value (avoids copying)
+void display(const string& s);
 
-// 9. Use nullptr, not NULL or 0 for pointers
+// 4. Use const for things that don't change
+const int MAX = 100;
+string getName() const;    // const method — won't modify the object
+
+// 5. Use override when overriding virtual functions
+void speak() override;     // compiler error if base doesn't have virtual speak()
+
+// 6. Always virtual destructor in base class
+class Base {
+public:
+    virtual ~Base() {}
+};
+
+// 7. Prefer range-based for loops
+for (const auto& item : container) { }
+
+// 8. Use nullptr, not NULL or 0
 int* p = nullptr;
 
-// 10. Prefer algorithms over raw loops
-sort(v.begin(), v.end());         // NOT manual bubble sort
-auto it = find(v.begin(), v.end(), val);
-
-// 11. Pass large objects by const reference
-void process(const BigObject& obj);  // NOT by value (expensive copy)
-
-// 12. Return by value — compiler handles move/elision
-BigObject createObject() {
-    BigObject obj;
-    return obj;   // NRVO/RVO optimizes this
-}
+// 9. Use {} initialization — prevents silent narrowing
+int x{42};           // fine
+// int y{3.14};      // ERROR — good! catches accidental truncation
 ```
 
-### Common Mistakes
+### ❌ Common mistakes
 
 ```cpp
-// 1. Memory leak — forgetting delete
+// 1. Memory leak
 int* p = new int(5);
-// ... forgot delete p!
+// ... forgot delete p → memory grows forever
+// FIX: use make_unique
 
-// Fix: use smart pointers
-auto p = make_unique<int>(5);
-
-// 2. Dangling pointer — using pointer after delete
+// 2. Using deleted pointer (dangling pointer)
 int* p = new int(5);
 delete p;
-cout << *p << endl;   // UNDEFINED BEHAVIOR!
-
-// Fix: set to nullptr after delete
-delete p; p = nullptr;
+*p = 10;   // UNDEFINED BEHAVIOR — may crash or silently corrupt data
+// FIX: set p = nullptr after delete, or use smart pointers
 
 // 3. Array out of bounds
 int arr[5];
-arr[5] = 10;   // UNDEFINED BEHAVIOR — valid indices are 0-4
+arr[5] = 99;   // UNDEFINED BEHAVIOR — valid range is 0-4
+// FIX: use vector with .at() which checks bounds
 
-// 4. Integer overflow
-int x = INT_MAX;
-x++;   // overflow — undefined behavior for signed int
+// 4. Missing virtual destructor
+class Base { ~Base() {} };         // wrong
+class Base { virtual ~Base() {} }; // correct
 
-// 5. Forgetting virtual destructor
-class Base {
-public:
-    ~Base() {}   // NOT virtual — derived destructor won't be called!
-};
-// Fix:
-    virtual ~Base() {}
+// 5. Floating point comparison
+if (0.1 + 0.2 == 0.3) { }   // FALSE — floating point isn't exact!
+// FIX:
+const double EPSILON = 1e-9;
+if (abs(0.1 + 0.2 - 0.3) < EPSILON) { }  // correct
 
-// 6. Object slicing
+// 6. Forgetting break in switch
+switch (n) {
+    case 1: cout << "one";   // falls into case 2 by accident!
+    case 2: cout << "two";   // always add break
+}
+
+// 7. Object slicing
+class Base { int x; };
+class Derived : public Base { int y; };
 Derived d;
-Base b = d;   // slices off derived part — only Base data remains
+Base b = d;    // y is LOST — "sliced off"
+// FIX: use pointers or references for polymorphism
+Base& ref = d;    // no slicing
 
-// Fix: use pointers/references for polymorphism
-Base& bref = d;
-
-// 7. Modifying container while iterating
-for (auto it = v.begin(); it != v.end(); ++it) {
-    if (*it == 3) v.erase(it);   // it is now invalid!
-}
-// Fix:
-it = v.erase(it);   // erase returns valid next iterator
-
-// 8. Race condition — unsynchronized shared data
-int counter = 0;  // accessed by multiple threads without mutex — undefined behavior
-
-// 9. Comparing floats with ==
-if (0.1 + 0.2 == 0.3)   // FALSE due to floating point precision!
-// Fix:
-if (abs(0.1 + 0.2 - 0.3) < 1e-9)
-
-// 10. Infinite recursion / missing base case
-int bad(int n) {
-    return n + bad(n - 1);   // no base case — stack overflow!
-}
+// 8. Uninitialized variable
+int x;
+cout << x;   // garbage value — could print anything
 ```
 
-### Useful Compiler Flags
-
+### Compiler flags to use
 ```bash
-# Debug build
-g++ -std=c++17 -g -O0 -Wall -Wextra -Wpedantic -o prog main.cpp
+# Development (catch bugs early)
+g++ -std=c++17 -Wall -Wextra -g -o program main.cpp
 
-# Release build
-g++ -std=c++17 -O2 -DNDEBUG -o prog main.cpp
+# Check for memory issues
+g++ -fsanitize=address,undefined -g -o program main.cpp
 
-# Address sanitizer (detects memory errors)
-g++ -fsanitize=address -g main.cpp
-
-# Thread sanitizer (detects race conditions)
-g++ -fsanitize=thread -g main.cpp
-
-# Undefined behavior sanitizer
-g++ -fsanitize=undefined -g main.cpp
+# Release (production-ready, optimized)
+g++ -std=c++17 -O2 -o program main.cpp
 ```
 
 ---
 
-## Quick Reference Cheat Sheet
+## 22. Quick Reference Cheat Sheet
 
-### Container Time Complexities
+### Type sizes and ranges
 
-| Operation | vector | deque | list | set/map | unordered |
-|-----------|--------|-------|------|---------|-----------|
-| Access by index | O(1) | O(1) | O(n) | — | — |
-| Insert at end | O(1) amort | O(1) | O(1) | O(log n) | O(1) avg |
-| Insert at front | O(n) | O(1) | O(1) | O(log n) | O(1) avg |
-| Insert middle | O(n) | O(n) | O(1) | O(log n) | O(1) avg |
-| Search | O(n) | O(n) | O(n) | O(log n) | O(1) avg |
-| Delete | O(n) | O(n) | O(1) | O(log n) | O(1) avg |
+| Type | Size | Range / Notes |
+|------|------|---------------|
+| `int` | 4 bytes | -2,147,483,648 to 2,147,483,647 |
+| `long long` | 8 bytes | ±9.2 × 10^18 |
+| `double` | 8 bytes | ~15 decimal digits |
+| `float` | 4 bytes | ~7 decimal digits |
+| `char` | 1 byte | single character |
+| `bool` | 1 byte | true or false |
 
-### Common Headers
-
+### Useful math functions (`#include <cmath>`)
 ```cpp
-#include <iostream>      // cin, cout, cerr
-#include <string>        // std::string
-#include <vector>        // std::vector
-#include <array>         // std::array
-#include <map>           // std::map, std::multimap
-#include <unordered_map> // std::unordered_map
-#include <set>           // std::set, std::multiset
-#include <unordered_set> // std::unordered_set
-#include <stack>         // std::stack
-#include <queue>         // std::queue, std::priority_queue
-#include <algorithm>     // sort, find, transform, etc.
-#include <numeric>       // accumulate, iota, etc.
-#include <functional>    // greater, less, bind, function
-#include <memory>        // unique_ptr, shared_ptr, make_unique
-#include <utility>       // pair, make_pair, move, forward
-#include <tuple>         // tuple, make_tuple, get
-#include <optional>      // optional (C++17)
-#include <variant>       // variant (C++17)
-#include <any>           // any (C++17)
-#include <fstream>       // file I/O
-#include <sstream>       // string streams
-#include <thread>        // std::thread
-#include <mutex>         // std::mutex, lock_guard
-#include <future>        // std::async, std::future
-#include <atomic>        // std::atomic
-#include <chrono>        // time utilities
-#include <random>        // random number generation
-#include <cmath>         // math functions (sqrt, pow, sin, etc.)
-#include <cstring>       // C-style string functions
-#include <cstdint>       // fixed-width integer types
-#include <limits>        // numeric_limits
-#include <stdexcept>     // standard exceptions
-#include <cassert>       // assert()
-#include <ranges>        // ranges (C++20)
-#include <concepts>      // concepts (C++20)
+sqrt(x)      // square root
+pow(x, y)    // x to the power y
+abs(x)       // absolute value
+floor(x)     // round down
+ceil(x)      // round up
+round(x)     // round to nearest
+sin/cos/tan  // trig functions
+log(x)       // natural log
+log10(x)     // log base 10
+```
+
+### Which container to use?
+
+| Situation | Use |
+|-----------|-----|
+| Ordered list, fast access by index | `vector` |
+| Key-value pairs, sorted | `map` |
+| Key-value pairs, fast lookup | `unordered_map` |
+| Unique items, sorted | `set` |
+| Unique items, fast lookup | `unordered_set` |
+| LIFO (undo, backtracking) | `stack` |
+| FIFO (task queue, BFS) | `queue` |
+| Priority processing | `priority_queue` |
+
+### String methods
+```cpp
+s.length()          // length
+s.empty()           // is empty?
+s.substr(pos, len)  // extract part
+s.find(sub)         // find position (string::npos if not found)
+s.replace(pos, len, newStr)
+s + t               // concatenate
+s += t              // append
+stoi(s)             // string to int
+stod(s)             // string to double
+to_string(n)        // number to string
+```
+
+### Common headers
+```cpp
+#include <iostream>       // cout, cin
+#include <string>         // string
+#include <vector>         // vector
+#include <map>            // map
+#include <unordered_map>  // unordered_map
+#include <set>            // set
+#include <stack>          // stack
+#include <queue>          // queue, priority_queue
+#include <algorithm>      // sort, find, etc.
+#include <numeric>        // accumulate, etc.
+#include <cmath>          // sqrt, pow, etc.
+#include <memory>         // smart pointers
+#include <fstream>        // file I/O
+#include <sstream>        // string streams
+#include <stdexcept>      // exceptions
+#include <thread>         // multithreading
+#include <optional>       // optional (C++17)
 ```
 
 ---
 
-*Generated as a complete C++ reference guide. Use alongside a compiler — the best way to learn is by writing and running code.*
+*You made it. Now write code. Break things. Fix them. That's how you actually learn C++.*
