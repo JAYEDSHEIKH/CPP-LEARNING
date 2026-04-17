@@ -35,6 +35,11 @@
 21. [Best Practices & Common Mistakes](#21-best-practices--common-mistakes)
 22. [Quick Reference Cheat Sheet](#22-quick-reference-cheat-sheet)
 
+### 🎮 Bonus Projects
+23. [Making a Terminal-Based Game](#23-making-a-terminal-based-game)
+24. [Making UI with C++ (SFML)](#24-making-ui-with-c-sfml)
+25. [Making Animations with C++](#25-making-animations-with-c)
+
 ---
 
 # 🟢 BEGINNER
@@ -1971,6 +1976,411 @@ to_string(n)        // number to string
 #include <thread>         // multithreading
 #include <optional>       // optional (C++17)
 ```
+
+---
+
+## 23. Making a Terminal-Based Game
+
+Terminal games run entirely in the console — no graphics needed. Perfect for practising logic, loops, and input handling in C++.
+
+### Example: Number Guessing Game
+
+```cpp
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+int main() {
+    srand(time(0));  // seed random number generator
+    int secret = rand() % 100 + 1;  // random number 1–100
+    int guess = 0;
+    int attempts = 0;
+
+    cout << "=== Number Guessing Game ===" << endl;
+    cout << "Guess a number between 1 and 100!" << endl;
+
+    while (guess != secret) {
+        cout << "\nYour guess: ";
+        cin >> guess;
+        attempts++;
+
+        if (guess < secret)
+            cout << "Too low! Try again." << endl;
+        else if (guess > secret)
+            cout << "Too high! Try again." << endl;
+        else
+            cout << "\n🎉 Correct! You got it in " << attempts << " attempts!" << endl;
+    }
+
+    return 0;
+}
+```
+
+### Example: Simple Text Adventure
+
+```cpp
+#include <iostream>
+#include <string>
+using namespace std;
+
+int health = 100;
+int gold = 0;
+
+void roomTwo();
+
+void roomOne() {
+    cout << "\nYou see two doors: [1] Left  [2] Right" << endl;
+    cout << "Choose: ";
+    int choice;
+    cin >> choice;
+
+    if (choice == 1) {
+        cout << "You find a chest with 50 gold!" << endl;
+        gold += 50;
+    } else {
+        cout << "A monster attacks! You lose 30 HP." << endl;
+        health -= 30;
+        cout << "HP: " << health << " | Gold: " << gold << endl;
+    }
+    roomTwo();
+}
+
+void roomTwo() {
+    if (health <= 0) {
+        cout << "\n💀 Game Over! You died." << endl;
+        return;
+    }
+    cout << "\nYou reach the exit!" << endl;
+    cout << "Final stats — HP: " << health << " | Gold: " << gold << endl;
+    cout << "🏆 You escaped the dungeon!" << endl;
+}
+
+int main() {
+    cout << "=== THE DUNGEON ===" << endl;
+    cout << "You wake up in a dark dungeon..." << endl;
+    roomOne();
+    return 0;
+}
+```
+
+### Key techniques for terminal games
+
+```cpp
+// Clear screen (Linux/Mac)
+system("clear");
+// Clear screen (Windows)
+system("cls");
+
+// ANSI colored text (most terminals)
+cout << "\033[31mRed text\033[0m"    << endl;  // red
+cout << "\033[32mGreen text\033[0m"  << endl;  // green
+cout << "\033[33mYellow text\033[0m" << endl;  // yellow
+cout << "\033[0mReset\033[0m"        << endl;  // reset
+
+// Pause for 1 second
+#include <chrono>
+#include <thread>
+this_thread::sleep_for(chrono::seconds(1));
+
+// Flush output immediately (no buffering)
+cout << "Loading..." << flush;
+```
+
+### Game loop pattern
+
+```cpp
+bool running = true;
+
+while (running) {
+    displayStatus();   // show HP, score, inventory
+
+    string action;
+    cout << "> ";
+    cin >> action;
+
+    if      (action == "n")      moveNorth();
+    else if (action == "s")      moveSouth();
+    else if (action == "attack") attackEnemy();
+    else if (action == "quit")   running = false;
+    else    cout << "Unknown command." << endl;
+
+    checkWinLose(running);
+}
+```
+
+---
+
+## 24. Making UI with C++ (SFML)
+
+**SFML** (Simple and Fast Multimedia Library) is the most popular way to build desktop windows, draw shapes, handle input, and play sounds in C++. It's free and beginner-friendly.
+
+### Install SFML
+
+```bash
+# Ubuntu/Debian
+sudo apt install libsfml-dev
+
+# Mac (Homebrew)
+brew install sfml
+
+# Windows — download from https://www.sfml-dev.org/download.php
+# Then link in your build: g++ main.cpp -lsfml-graphics -lsfml-window -lsfml-system
+```
+
+### Your first window
+
+```cpp
+#include <SFML/Graphics.hpp>
+using namespace sf;
+
+int main() {
+    RenderWindow window(VideoMode(800, 600), "My First Window");
+
+    while (window.isOpen()) {
+        Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == Event::Closed)
+                window.close();
+        }
+
+        window.clear(Color::Black);   // clear with black background
+        window.display();             // show what was drawn
+    }
+
+    return 0;
+}
+```
+
+### Drawing shapes and text
+
+```cpp
+#include <SFML/Graphics.hpp>
+using namespace sf;
+
+int main() {
+    RenderWindow window(VideoMode(800, 600), "Shapes & Text");
+
+    // Circle
+    CircleShape circle(50.f);
+    circle.setFillColor(Color::Cyan);
+    circle.setPosition(100.f, 100.f);
+
+    // Rectangle
+    RectangleShape rect(Vector2f(150.f, 80.f));
+    rect.setFillColor(Color::Red);
+    rect.setPosition(300.f, 100.f);
+
+    // Text
+    Font font;
+    font.loadFromFile("arial.ttf");   // needs a .ttf font file
+    Text text("Hello, SFML!", font, 32);
+    text.setFillColor(Color::White);
+    text.setPosition(200.f, 300.f);
+
+    while (window.isOpen()) {
+        Event event;
+        while (window.pollEvent(event))
+            if (event.type == Event::Closed) window.close();
+
+        window.clear(Color::Black);
+        window.draw(circle);
+        window.draw(rect);
+        window.draw(text);
+        window.display();
+    }
+
+    return 0;
+}
+```
+
+### Handling keyboard and mouse input
+
+```cpp
+// Inside game loop — check keyboard state every frame
+if (Keyboard::isKeyPressed(Keyboard::Left))  player.move(-5.f, 0.f);
+if (Keyboard::isKeyPressed(Keyboard::Right)) player.move( 5.f, 0.f);
+if (Keyboard::isKeyPressed(Keyboard::Up))    player.move( 0.f,-5.f);
+if (Keyboard::isKeyPressed(Keyboard::Down))  player.move( 0.f, 5.f);
+
+// Mouse position
+Vector2i mousePos = Mouse::getPosition(window);
+
+// Events — for one-time actions (clicks, key press/release)
+while (window.pollEvent(event)) {
+    if (event.type == Event::MouseButtonPressed) {
+        if (event.mouseButton.button == Mouse::Left)
+            cout << "Left click at " << event.mouseButton.x << endl;
+    }
+    if (event.type == Event::KeyPressed) {
+        if (event.key.code == Keyboard::Space)
+            jump();
+    }
+}
+```
+
+### Loading and drawing images (sprites)
+
+```cpp
+Texture texture;
+texture.loadFromFile("player.png");
+
+Sprite sprite;
+sprite.setTexture(texture);
+sprite.setPosition(200.f, 150.f);
+sprite.setScale(2.f, 2.f);  // scale up 2x
+
+window.draw(sprite);
+```
+
+---
+
+## 25. Making Animations with C++
+
+Animations in C++ with SFML work by updating object positions/angles each frame and redrawing — exactly like a flipbook. The key is a **fixed timestep game loop** so the animation speed is independent of hardware.
+
+### Bouncing ball animation
+
+```cpp
+#include <SFML/Graphics.hpp>
+using namespace sf;
+
+int main() {
+    RenderWindow window(VideoMode(800, 600), "Bouncing Ball");
+    window.setFramerateLimit(60);  // cap at 60 FPS
+
+    CircleShape ball(25.f);
+    ball.setFillColor(Color::Cyan);
+    ball.setOrigin(25.f, 25.f);    // center origin
+    ball.setPosition(400.f, 300.f);
+
+    float dx = 4.f, dy = 3.f;     // speed per frame
+
+    while (window.isOpen()) {
+        Event event;
+        while (window.pollEvent(event))
+            if (event.type == Event::Closed) window.close();
+
+        // Move ball
+        ball.move(dx, dy);
+
+        // Bounce off walls
+        FloatRect bounds = ball.getGlobalBounds();
+        if (bounds.left < 0 || bounds.left + bounds.width > 800)  dx = -dx;
+        if (bounds.top  < 0 || bounds.top + bounds.height > 600)  dy = -dy;
+
+        window.clear(Color::Black);
+        window.draw(ball);
+        window.display();
+    }
+
+    return 0;
+}
+```
+
+### Rotating and scaling shapes
+
+```cpp
+RectangleShape box(Vector2f(80.f, 80.f));
+box.setOrigin(40.f, 40.f);        // rotate around center
+box.setFillColor(Color::Green);
+box.setPosition(400.f, 300.f);
+
+float angle = 0.f;
+
+while (window.isOpen()) {
+    // ...event handling...
+
+    angle += 2.f;                  // rotate 2 degrees per frame
+    if (angle >= 360.f) angle = 0.f;
+    box.setRotation(angle);
+
+    // Pulsing scale effect
+    float scale = 1.f + 0.3f * sin(angle * 3.14159f / 180.f);
+    box.setScale(scale, scale);
+
+    window.clear(Color::Black);
+    window.draw(box);
+    window.display();
+}
+```
+
+### Fixed timestep game loop (frame-rate independent)
+
+```cpp
+#include <SFML/Graphics.hpp>
+using namespace sf;
+
+int main() {
+    RenderWindow window(VideoMode(800, 600), "Fixed Timestep");
+
+    Clock clock;
+    float dt = 0.f;           // delta time in seconds
+
+    CircleShape ball(20.f);
+    ball.setFillColor(Color::Yellow);
+    ball.setPosition(100.f, 300.f);
+
+    float speed = 200.f;      // pixels per second (not per frame!)
+    float dir = 1.f;
+
+    while (window.isOpen()) {
+        dt = clock.restart().asSeconds();  // time since last frame
+
+        Event event;
+        while (window.pollEvent(event))
+            if (event.type == Event::Closed) window.close();
+
+        // Movement uses dt — same speed on any computer
+        ball.move(speed * dir * dt, 0.f);
+
+        FloatRect b = ball.getGlobalBounds();
+        if (b.left < 0 || b.left + b.width > 800) dir = -dir;
+
+        window.clear(Color::Black);
+        window.draw(ball);
+        window.display();
+    }
+
+    return 0;
+}
+```
+
+### Sprite sheet animation (walking character)
+
+```cpp
+Texture sheet;
+sheet.loadFromFile("walk_spritesheet.png");  // e.g. 4 frames, each 64x64
+
+Sprite player;
+player.setTexture(sheet);
+
+int frame = 0;          // current frame (0–3)
+int frameWidth = 64;
+float timer = 0.f;
+float frameTime = 0.15f;  // switch frame every 0.15 seconds
+
+// Inside loop:
+timer += dt;
+if (timer >= frameTime) {
+    timer = 0.f;
+    frame = (frame + 1) % 4;  // cycle through 4 frames
+}
+// Show correct frame from sprite sheet
+player.setTextureRect(IntRect(frame * frameWidth, 0, frameWidth, 64));
+window.draw(player);
+```
+
+### Animation tips
+
+| Goal | Technique |
+|------|-----------|
+| Cap frame rate | `window.setFramerateLimit(60)` |
+| Frame-rate independent movement | Multiply speed by `dt` (delta time) |
+| Smooth rotation | `shape.setRotation(angle)` each frame |
+| Sprite sheet animation | Cycle `setTextureRect()` with a timer |
+| Fade in/out | `shape.setFillColor(Color(r, g, b, alpha))` |
+| Screen shake | Offset `window.setView()` by small random amount |
 
 ---
 
